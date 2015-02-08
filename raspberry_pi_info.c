@@ -32,14 +32,14 @@
 
 #include "raspberry_pi_info.h"
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 //
 // The file /proc/cpuinfo contains a line such as:-
 //
 // Revision    : 0003
 //
 // that holds the revision number of the Raspberry Pi.
-// Known revisions are:
+// Known revisions (prior to the Raspberry Pi 2) are:
 //
 //     +----------+---------+---------+--------+-------------+
 //     | Revision |  Model  | PCB Rev | Memory | Manufacture |
@@ -68,7 +68,53 @@
 // If the Raspberry Pi has been over-volted (voiding the warranty) the
 // revision number will have 100 at the front. e.g. 1000002.
 //
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
+//
+// With the release of the Raspberry Pi 2, there is a new encoding of the
+// Revision field in /proc/cpuinfo. The bit fields are as follows
+//
+//     +----+----+----+----+----+----+----+----+
+//     |FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
+//     +----+----+----+----+----+----+----+----+
+//     |    |    |    |    |    |    |    |AAAA|
+//     |    |    |    |    |    |BBBB|BBBB|    |
+//     |    |    |    |    |CCCC|    |    |    |
+//     |    |    |    |DDDD|    |    |    |    |
+//     |    |    | EEE|    |    |    |    |    |
+//     |    |    |F   |    |    |    |    |    |
+//     |    |   G|    |    |    |    |    |    |
+//     |    |  H |    |    |    |    |    |    |
+//     +----+----+----+----+----+----+----+----+
+//     |1098|7654|3210|9876|5432|1098|7654|3210|
+//     +----+----+----+----+----+----+----+----+
+//
+// +---+-------+--------------+--------------------------------------------+
+// | # | bits  |   contains   | values                                     |
+// +---+-------+--------------+--------------------------------------------+
+// | A | 00-03 | PCB Revision | (the pcb revision number)                  |
+// | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
+// | C | 12-15 | Processor    | BCM2835, BCM2836                           |
+// | D | 16-19 | Manufacturer | Sony, Egoman, Embest, unknown, Embest      |
+// | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
+// | F | 23-23 | encoded flag | (if set, revision is a bit field)          |
+// | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)          |
+// | H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)         |
+// +---+-------+--------------+--------------------------------------------+
+//
+// Also, due to some early issues the warranty bit has been move from bit
+// 24 to bit 25 of the revision number (i.e. 0x2000000).
+//
+// e.g.
+//
+// Revision    : A01041
+//
+// A - PCB Revison - 1 (first revision)
+// B - Model Name - 4 (Model B Pi 2)
+// C - Processor - 1 (BCM2836)
+// D - Manufacturer - 0 (Sony)
+// E - Memory - 2 (1024 MB)
+//
+//-------------------------------------------------------------------------
 
 static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
 {
@@ -100,7 +146,7 @@ static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
     RPI_1024MB
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static RASPBERRY_PI_PROCESSOR_T bitFieldToProcessor[] =
 {
@@ -108,7 +154,7 @@ static RASPBERRY_PI_PROCESSOR_T bitFieldToProcessor[] =
     RPI_BROADCOM_2836
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
 {
@@ -133,7 +179,7 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
     RPI_I2C_1               // 12
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static const char *revisionToModelName[] =
 {
@@ -169,7 +215,7 @@ static const char *bitFieldToModelName[] =
     "Compute Module"
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static const char *bitFieldToManufacturer[] =
 {
@@ -203,7 +249,7 @@ static const char *revisionToManufacturer[] =
     "Sony"     // 12
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static int revisionToPcbRevision[] =
 {
@@ -228,7 +274,7 @@ static int revisionToPcbRevision[] =
     1  // 12
 };
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 //
 // Remove leading and trailing whitespace from a string.
 
@@ -268,7 +314,7 @@ trimWhiteSpace(
     return string;
 }
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 static int
 getRaspberryPiRevision()
@@ -303,7 +349,7 @@ getRaspberryPiRevision()
     return raspberryPiRevision;
 }
 
-//-----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 int
 getRaspberryPiInformation(
@@ -359,7 +405,7 @@ getRaspberryPiInformation(
                 int madeByIndex = (revision & 0xF0000) >> 16;
                 info->manufacturer = bitFieldToManufacturer[madeByIndex];
 
-                info->pcbRevision = 1;
+                info->pcbRevision = revision & 0xF;
             }
             else if (revision <= 0x12)
             {

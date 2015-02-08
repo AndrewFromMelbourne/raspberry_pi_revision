@@ -41,7 +41,7 @@ main(void)
         printf("memory: %d MB\n", info.memory);
         printf("processor: Broadcom BCM%d\n", info.processor);
         printf("i2cDevice: /dev/i2c-%d\n", info.i2cDevice);
-        printf("model name: %s\n", info.modelName);
+        printf("model name: Raspberry Pi Model %s\n", info.modelName);
         printf("manufacturer: %s\n", info.manufacturer);
         printf("pcb revision: %d\n", info.pcbRevision);
         printf("warranty void: %s\n", (info.warrantyBit) ? "yes" : "no");
