@@ -38,7 +38,7 @@ extern "C" {
 
 typedef enum
 {
-    RPI_MEMORY_UNKNOWN,
+    RPI_MEMORY_UNKNOWN = -1,
     RPI_256MB = 256,
     RPI_512MB = 512,
     RPI_1024MB = 1024,
@@ -47,7 +47,7 @@ RASPBERRY_PI_MEMORY_T;
 
 typedef enum
 {
-    RPI_PROCESSOR_UNKNOWN = 0,
+    RPI_PROCESSOR_UNKNOWN = -1,
     RPI_BROADCOM_2835 = 2835,
     RPI_BROADCOM_2836 = 2836
 }
@@ -61,6 +61,29 @@ typedef enum
 }
 RASPBERRY_PI_I2C_DEVICE_T;
 
+typedef enum
+{
+    RPI_MODEL_UNKNOWN = -1,
+    RPI_MODEL_A,
+    RPI_MODEL_B,
+    RPI_MODEL_A_PLUS,
+    RPI_MODEL_B_PLUS,
+    RPI_MODEL_B_PI_2,
+    RPI_MODEL_ALPHA,
+    RPI_COMPUTE_MODULE
+}
+RASPBERRY_PI_MODEL_T;
+
+typedef enum
+{
+    RPI_MANUFACTURER_UNKNOWN = -1,
+    RPI_MANUFACTURER_SONY,
+    RPI_MANUFACTURER_EGOMAN,
+    RPI_MANUFACTURER_QISDA,
+    RPI_MANUFACTURER_EMBEST,
+}
+RASPBERRY_PI_MANUFACTURER_T;
+
 //-------------------------------------------------------------------------
 
 typedef struct
@@ -68,8 +91,8 @@ typedef struct
     RASPBERRY_PI_MEMORY_T memory;
     RASPBERRY_PI_PROCESSOR_T processor;
     RASPBERRY_PI_I2C_DEVICE_T i2cDevice;
-    const char *modelName;
-    const char *manufacturer;
+    RASPBERRY_PI_MODEL_T model;
+    RASPBERRY_PI_MANUFACTURER_T manufacturer;
     int pcbRevision;
     int warrantyBit;
     int revisionNumber;
@@ -81,6 +104,26 @@ RASPBERRY_PI_INFO_T;
 int
 getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info);
+
+const char *
+raspberryPiMemoryToString(
+    RASPBERRY_PI_MEMORY_T memory);
+
+const char *
+raspberryPiProcessorToString(
+    RASPBERRY_PI_PROCESSOR_T processor);
+
+const char *
+raspberryPiI2CDeciveToString(
+    RASPBERRY_PI_I2C_DEVICE_T i2cDevice);
+
+const char *
+raspberryPiModelToString(
+    RASPBERRY_PI_MODEL_T model);
+
+const char *
+raspberryPiManufacturerToString(
+    RASPBERRY_PI_MANUFACTURER_T manufacturer);
 
 //-------------------------------------------------------------------------
 

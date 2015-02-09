@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "raspberry_pi_info.h"
+#include "raspberry_pi_revision.h"
 
 //-------------------------------------------------------------------------
 //
@@ -181,72 +181,72 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
 
 //-------------------------------------------------------------------------
 
-static const char *revisionToModelName[] =
+static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
 {
-    "unknown",        //  0
-    "unknown",        //  1
-    "B",              //  2
-    "B",              //  3
-    "B",              //  4
-    "B",              //  5
-    "B",              //  6
-    "A",              //  7
-    "A",              //  8
-    "A",              //  9
-    "unknown",        //  A
-    "unknown",        //  B
-    "unknown",        //  C
-    "B",              //  D
-    "B",              //  E
-    "B",              //  F
-    "B+",             // 10
-    "Compute Module", // 11
-    "A+"              // 12
+    RPI_MODEL_A,
+    RPI_MODEL_B,
+    RPI_MODEL_A_PLUS,
+    RPI_MODEL_B_PLUS,
+    RPI_MODEL_B_PI_2,
+    RPI_MODEL_ALPHA,
+    RPI_COMPUTE_MODULE
 };
 
-static const char *bitFieldToModelName[] =
+static RASPBERRY_PI_MODEL_T revisionToModel[] =
 {
-    "A",
-    "B",
-    "A+",
-    "B+",
-    "B Pi 2",
-    "Alpha",
-    "Compute Module"
+    RPI_MODEL_UNKNOWN,  //  0
+    RPI_MODEL_UNKNOWN,  //  1
+    RPI_MODEL_B,        //  2
+    RPI_MODEL_B,        //  3
+    RPI_MODEL_B,        //  4
+    RPI_MODEL_B,        //  5
+    RPI_MODEL_B,        //  6
+    RPI_MODEL_A,        //  7
+    RPI_MODEL_A,        //  8
+    RPI_MODEL_A,        //  9
+    RPI_MODEL_UNKNOWN,  //  A
+    RPI_MODEL_UNKNOWN,  //  B
+    RPI_MODEL_UNKNOWN,  //  C
+    RPI_MODEL_B,        //  D
+    RPI_MODEL_B,        //  E
+    RPI_MODEL_B,        //  F
+    RPI_MODEL_B_PLUS,   // 10
+    RPI_COMPUTE_MODULE, // 11
+    RPI_MODEL_A_PLUS    // 12
 };
 
 //-------------------------------------------------------------------------
 
-static const char *bitFieldToManufacturer[] =
+static RASPBERRY_PI_MANUFACTURER_T bitFieldToManufacturer[] =
 {
-    "Sony",
-    "Egoman",
-    "Embest",
-    "unknown",
-    "Embest"
+    RPI_MANUFACTURER_SONY,
+    RPI_MANUFACTURER_EGOMAN,
+    RPI_MANUFACTURER_EMBEST,
+    RPI_MANUFACTURER_UNKNOWN,
+    RPI_MANUFACTURER_EMBEST
 };
 
-static const char *revisionToManufacturer[] =
+static RASPBERRY_PI_MANUFACTURER_T revisionToManufacturer[] =
 {
-    "unknown", //  0
-    "unknown", //  1
-    "unknown", //  2
-    "unknown", //  3
-    "Sony",    //  4
-    "Qisda",   //  5
-    "Egoman",  //  6
-    "Egoman",  //  7
-    "Sony",    //  8
-    "Qisda",   //  9
-    "unknown", //  A
-    "unknown", //  B
-    "unknown", //  C
-    "Egoman",  //  D
-    "Sony",    //  E
-    "Qisda",   //  F
-    "Sony",    // 10
-    "Sony",    // 11
-    "Sony"     // 12
+    RPI_MANUFACTURER_UNKNOWN, //  0
+    RPI_MANUFACTURER_UNKNOWN, //  1
+    RPI_MANUFACTURER_UNKNOWN, //  2
+    RPI_MANUFACTURER_UNKNOWN, //  3
+    RPI_MANUFACTURER_SONY,    //  4
+    RPI_MANUFACTURER_QISDA,   //  5
+    RPI_MANUFACTURER_EGOMAN,  //  6
+    RPI_MANUFACTURER_EGOMAN,  //  7
+    RPI_MANUFACTURER_SONY,    //  8
+    RPI_MANUFACTURER_QISDA,   //  9
+    RPI_MANUFACTURER_UNKNOWN, //  A
+    RPI_MANUFACTURER_UNKNOWN, //  B
+    RPI_MANUFACTURER_UNKNOWN, //  C
+    RPI_MANUFACTURER_EGOMAN,  //  D
+    RPI_MANUFACTURER_SONY,    //  E
+    RPI_MANUFACTURER_QISDA,   //  F
+    RPI_MANUFACTURER_SONY,    // 10
+    RPI_MANUFACTURER_SONY,    // 11
+    RPI_MANUFACTURER_SONY     // 12
 };
 
 //-------------------------------------------------------------------------
@@ -364,8 +364,8 @@ getRaspberryPiInformation(
         info->memory = RPI_MEMORY_UNKNOWN;
         info->processor = RPI_PROCESSOR_UNKNOWN;
         info->i2cDevice = RPI_I2C_DEVICE_UNKNOWN;
-        info->modelName = "unknown";
-        info->manufacturer = "unknown";
+        info->model = RPI_MODEL_UNKNOWN;
+        info->manufacturer = RPI_MANUFACTURER_UNKNOWN;
         info->pcbRevision = 0;
         info->warrantyBit = 0;
         info->revisionNumber = revision;
@@ -400,7 +400,7 @@ getRaspberryPiInformation(
                 info->i2cDevice = RPI_I2C_1;
 
                 int modelIndex = (revision & 0xFF0) >> 4;
-                info->modelName = bitFieldToModelName[modelIndex];
+                info->model = bitFieldToModel[modelIndex];
 
                 int madeByIndex = (revision & 0xF0000) >> 16;
                 info->manufacturer = bitFieldToManufacturer[madeByIndex];
@@ -421,7 +421,7 @@ getRaspberryPiInformation(
                 info->memory = revisionToMemory[revision];
                 info->processor = RPI_BROADCOM_2835;
                 info->i2cDevice = revisionToI2CDevice[revision];
-                info->modelName = revisionToModelName[revision];
+                info->model = revisionToModel[revision];
                 info->manufacturer = revisionToManufacturer[revision];
                 info->pcbRevision = revisionToPcbRevision[revision];
             }
@@ -429,5 +429,185 @@ getRaspberryPiInformation(
     }
 
     return result;
+}
+
+//-------------------------------------------------------------------------
+
+const char *
+raspberryPiMemoryToString(
+    RASPBERRY_PI_MEMORY_T memory)
+{
+    const char *string = "unknown";
+
+    switch(memory)
+    {
+    case RPI_256MB:
+
+        string = "256 MB";
+        break;
+
+    case RPI_512MB:
+
+        string = "512 MB";
+        break;
+
+    case RPI_1024MB:
+
+        string = "1024 MB";
+        break;
+
+    default:
+
+        break;
+    }
+
+    return string;
+}
+
+//-------------------------------------------------------------------------
+
+const char *
+raspberryPiProcessorToString(
+    RASPBERRY_PI_PROCESSOR_T processor)
+{
+    const char *string = "unkown";
+
+    switch(processor)
+    {
+    case RPI_BROADCOM_2835:
+
+        string = "Broadcom BCM2835";
+        break;
+
+    case RPI_BROADCOM_2836:
+
+        string = "Broadcom BCM2836";
+        break;
+
+    default:
+
+        break;
+    }
+
+    return string;
+}
+
+//-------------------------------------------------------------------------
+
+const char *
+raspberryPiI2CDeciveToString(
+    RASPBERRY_PI_I2C_DEVICE_T i2cDevice)
+{
+    const char *string = "unkown";
+
+    switch(i2cDevice)
+    {
+    case RPI_I2C_0:
+
+        string = "/dev/i2c-0";
+        break;
+
+    case RPI_I2C_1:
+
+        string = "/dev/i2c-1";
+        break;
+
+    default:
+
+        break;
+    }
+
+    return string;
+}
+
+//-------------------------------------------------------------------------
+
+const char *
+raspberryPiModelToString(
+    RASPBERRY_PI_MODEL_T model)
+{
+    const char *string = "unknown";
+
+    switch(model)
+    {
+    case RPI_MODEL_A:
+
+        string = "Model A";
+        break;
+
+    case RPI_MODEL_B:
+
+        string = "Model B";
+        break;
+
+    case RPI_MODEL_A_PLUS:
+
+        string = "Model A+";
+        break;
+
+    case RPI_MODEL_B_PLUS:
+
+        string = "Model B+";
+        break;
+
+    case RPI_MODEL_B_PI_2:
+
+        string = "Model B Pi 2";
+        break;
+
+    case RPI_MODEL_ALPHA:
+
+        string = "Alpha";
+        break;
+
+    case RPI_COMPUTE_MODULE:
+
+        string = "Compute Module";
+        break;
+
+    default:
+
+        break;
+    }
+
+    return string;
+}
+
+//-------------------------------------------------------------------------
+
+const char *
+raspberryPiManufacturerToString(
+    RASPBERRY_PI_MANUFACTURER_T manufacturer)
+{
+    const char *string = "unkown";
+
+    switch(manufacturer)
+    {
+    case RPI_MANUFACTURER_SONY:
+
+        string = "Sony";
+        break;
+
+    case RPI_MANUFACTURER_EGOMAN:
+
+        string = "Egoman";
+        break;
+
+    case RPI_MANUFACTURER_QISDA:
+
+        string = "Qisda";
+        break;
+
+    case RPI_MANUFACTURER_EMBEST:
+
+        string = "Embest";
+        break;
+
+    default:
+
+        break;
+    }
+
+    return string;
 }
 

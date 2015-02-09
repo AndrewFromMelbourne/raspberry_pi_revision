@@ -1,5 +1,5 @@
-OBJS=raspberry_pi_info.o test.o
-BIN=rpinfo
+OBJS=raspberry_pi_revision.o test.o
+BIN=test
 
 CFLAGS+=-Wall -g -O3
 

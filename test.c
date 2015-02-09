@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 
-#include "raspberry_pi_info.h"
+#include "raspberry_pi_revision.h"
 
 //-----------------------------------------------------------------------
 
@@ -38,14 +38,25 @@ main(void)
     
     if (getRaspberryPiInformation(&info) > 0)
     {
-        printf("memory: %d MB\n", info.memory);
-        printf("processor: Broadcom BCM%d\n", info.processor);
-        printf("i2cDevice: /dev/i2c-%d\n", info.i2cDevice);
-        printf("model name: Raspberry Pi Model %s\n", info.modelName);
-        printf("manufacturer: %s\n", info.manufacturer);
+        printf("memory: %s\n", raspberryPiMemoryToString(info.memory));
+
+        printf("processor: %s\n",
+               raspberryPiProcessorToString(info.processor));
+
+        printf("i2cDevice: %s\n",
+               raspberryPiI2CDeciveToString(info.i2cDevice));
+
+        printf("model: %s\n",
+               raspberryPiModelToString(info.model));
+
+        printf("manufacturer: %s\n",
+               raspberryPiManufacturerToString(info.manufacturer));
+
         printf("pcb revision: %d\n", info.pcbRevision);
+
         printf("warranty void: %s\n", (info.warrantyBit) ? "yes" : "no");
-        printf("revision: %04X\n", info.revisionNumber);
+
+        printf("revision: %04x\n", info.revisionNumber);
     }
 
     return 0;
