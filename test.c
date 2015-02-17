@@ -58,6 +58,10 @@ main(void)
 
         printf("revision: %04x\n", info.revisionNumber);
     }
+    else
+    {
+        printf("getRaspberryPiInformation() failed ...\n");
+    }
 
     return 0;
 }

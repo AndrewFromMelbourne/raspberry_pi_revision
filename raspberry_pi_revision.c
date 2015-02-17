@@ -63,6 +63,7 @@
 //     |   0010   |    B+   |    1    | 512 MB |   Sony      |
 //     |   0011   | compute |    1    | 512 MB |   Sony      |
 //     |   0012   |    A+   |    1    | 256 MB |   Sony      |
+//     |   0013   |    B+   |    1    | 512 MB |   ????      |
 //     +----------+---------+---------+--------+-------------+
 //
 // If the Raspberry Pi has been over-volted (voiding the warranty) the
@@ -136,7 +137,8 @@ static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
     RPI_512MB,          //  F
     RPI_512MB,          // 10
     RPI_512MB,          // 11
-    RPI_256MB           // 12
+    RPI_256MB,          // 12
+    RPI_512MB           // 13
 };
 
 static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
@@ -176,7 +178,8 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
     RPI_I2C_1,              //  F
     RPI_I2C_1,              // 10
     RPI_I2C_1,              // 11
-    RPI_I2C_1               // 12
+    RPI_I2C_1,              // 12
+    RPI_I2C_1               // 13
 };
 
 //-------------------------------------------------------------------------
@@ -212,7 +215,8 @@ static RASPBERRY_PI_MODEL_T revisionToModel[] =
     RPI_MODEL_B,        //  F
     RPI_MODEL_B_PLUS,   // 10
     RPI_COMPUTE_MODULE, // 11
-    RPI_MODEL_A_PLUS    // 12
+    RPI_MODEL_A_PLUS,   // 12
+    RPI_MODEL_B_PLUS    // 13
 };
 
 //-------------------------------------------------------------------------
@@ -246,7 +250,8 @@ static RASPBERRY_PI_MANUFACTURER_T revisionToManufacturer[] =
     RPI_MANUFACTURER_QISDA,   //  F
     RPI_MANUFACTURER_SONY,    // 10
     RPI_MANUFACTURER_SONY,    // 11
-    RPI_MANUFACTURER_SONY     // 12
+    RPI_MANUFACTURER_SONY,    // 12
+    RPI_MANUFACTURER_UNKNOWN  // 13
 };
 
 //-------------------------------------------------------------------------
@@ -271,7 +276,8 @@ static int revisionToPcbRevision[] =
     2, //  F
     1, // 10
     1, // 11
-    1  // 12
+    1, // 12
+    1  // 13
 };
 
 //-------------------------------------------------------------------------
@@ -372,6 +378,9 @@ getRaspberryPiInformation(
 
         if (revision != 0)
         {
+            size_t maxOriginalRevision = (sizeof(revisionToModel) /
+                                         sizeof(revisionToModel[0])) - 1;
+
             // remove warranty bit
 
             revision &= ~0x3000000;
@@ -407,7 +416,7 @@ getRaspberryPiInformation(
 
                 info->pcbRevision = revision & 0xF;
             }
-            else if (revision <= 0x12)
+            else if (revision <= maxOriginalRevision)
             {
                 // Original revision encoding
 
