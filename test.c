@@ -25,6 +25,7 @@
 //
 //-------------------------------------------------------------------------
 
+#include <inttypes.h>
 #include <stdio.h>
 
 #include "raspberry_pi_revision.h"
@@ -57,7 +58,7 @@ main(void)
         printf("warranty void: %s\n", (info.warrantyBit) ? "yes" : "no");
 
         printf("revision: %04x\n", info.revisionNumber);
-        printf("peripheral base: %p\n", info.peripheralBase);
+        printf("peripheral base: 0x%"PRIX32"\n", info.peripheralBase);
     }
     else
     {

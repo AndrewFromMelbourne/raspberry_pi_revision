@@ -375,7 +375,7 @@ getRaspberryPiInformation(
         info->pcbRevision = 0;
         info->warrantyBit = 0;
         info->revisionNumber = revision;
-        info->peripheralBase = NULL;
+        info->peripheralBase = RPI_PERIPHERAL_BASE_UNKNOWN;
 
         if (revision != 0)
         {
@@ -441,17 +441,17 @@ getRaspberryPiInformation(
         {
         case RPI_PROCESSOR_UNKNOWN:
 
-            info->peripheralBase = NULL;
+            info->peripheralBase = RPI_PERIPHERAL_BASE_UNKNOWN;
             break;
 
         case RPI_BROADCOM_2835:
 
-            info->peripheralBase = (void*)RPI_BROADCOM_2835_PERIPHERAL_BASE;
+            info->peripheralBase = RPI_BROADCOM_2835_PERIPHERAL_BASE;
             break;
 
         case RPI_BROADCOM_2836:
 
-            info->peripheralBase = (void*)RPI_BROADCOM_2836_PERIPHERAL_BASE;
+            info->peripheralBase = RPI_BROADCOM_2836_PERIPHERAL_BASE;
             break;
         }
     }

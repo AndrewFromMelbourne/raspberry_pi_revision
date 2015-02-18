@@ -30,12 +30,17 @@
 
 //-------------------------------------------------------------------------
 
+#include <stdint.h>
+
+//-------------------------------------------------------------------------
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 //-------------------------------------------------------------------------
 
+#define RPI_PERIPHERAL_BASE_UNKNOWN 0
 #define RPI_BROADCOM_2835_PERIPHERAL_BASE 0x20000000
 #define RPI_BROADCOM_2836_PERIPHERAL_BASE 0x3F000000
 
@@ -99,7 +104,7 @@ typedef struct
     int pcbRevision;
     int warrantyBit;
     int revisionNumber;
-    void *peripheralBase;
+    uint32_t peripheralBase;
 }
 RASPBERRY_PI_INFO_T;
 
