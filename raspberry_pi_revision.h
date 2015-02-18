@@ -36,6 +36,9 @@ extern "C" {
 
 //-------------------------------------------------------------------------
 
+#define RPI_BROADCOM_2835_PERIPHERAL_BASE 0x20000000
+#define RPI_BROADCOM_2836_PERIPHERAL_BASE 0x3F000000
+
 typedef enum
 {
     RPI_MEMORY_UNKNOWN = -1,
@@ -96,6 +99,7 @@ typedef struct
     int pcbRevision;
     int warrantyBit;
     int revisionNumber;
+    void *peripheralBase;
 }
 RASPBERRY_PI_INFO_T;
 

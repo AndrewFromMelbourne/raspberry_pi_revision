@@ -57,6 +57,7 @@ main(void)
         printf("warranty void: %s\n", (info.warrantyBit) ? "yes" : "no");
 
         printf("revision: %04x\n", info.revisionNumber);
+        printf("peripheral base: %p\n", info.peripheralBase);
     }
     else
     {
