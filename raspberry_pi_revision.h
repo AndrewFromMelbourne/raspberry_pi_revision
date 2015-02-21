@@ -110,6 +110,12 @@ RASPBERRY_PI_INFO_T;
 
 //-------------------------------------------------------------------------
 
+// getRaspberryPiInformation()
+//
+// return - 0 - failed to get revision from /proc/cpuinfo
+//          1 - found classic revision number
+//          2 - found Pi 2 style revision number
+
 int
 getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info);
@@ -123,7 +129,7 @@ raspberryPiProcessorToString(
     RASPBERRY_PI_PROCESSOR_T processor);
 
 const char *
-raspberryPiI2CDeciveToString(
+raspberryPiI2CDeviceToString(
     RASPBERRY_PI_I2C_DEVICE_T i2cDevice);
 
 const char *

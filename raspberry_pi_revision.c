@@ -523,7 +523,7 @@ raspberryPiProcessorToString(
 //-------------------------------------------------------------------------
 
 const char *
-raspberryPiI2CDeciveToString(
+raspberryPiI2CDeviceToString(
     RASPBERRY_PI_I2C_DEVICE_T i2cDevice)
 {
     const char *string = "unkown";
