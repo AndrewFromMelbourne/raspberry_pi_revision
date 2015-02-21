@@ -45,7 +45,7 @@ main(void)
                raspberryPiProcessorToString(info.processor));
 
         printf("i2cDevice: %s\n",
-               raspberryPiI2CDeciveToString(info.i2cDevice));
+               raspberryPiI2CDeviceToString(info.i2cDevice));
 
         printf("model: %s\n",
                raspberryPiModelToString(info.model));
