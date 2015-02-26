@@ -2,8 +2,7 @@ OBJS=raspberry_pi_revision.o test.o
 BIN=test
 
 CFLAGS+=-Wall -g -O3
-
-INCLUDES+=-I/opt/vc/include/ -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include/interface/vmcs_host/linux
+LDFLAGS+=-ldl
 
 all: $(BIN)
 

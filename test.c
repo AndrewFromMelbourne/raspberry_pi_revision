@@ -25,10 +25,40 @@
 //
 //-------------------------------------------------------------------------
 
+#include <dlfcn.h>
 #include <inttypes.h>
 #include <stdio.h>
 
 #include "raspberry_pi_revision.h"
+
+//-----------------------------------------------------------------------
+
+typedef unsigned (*bhgpa)(void);
+
+//-----------------------------------------------------------------------
+
+uint32_t
+getPeripheralBaseFromBcmHost(void)
+{
+    uint32_t base = 0;
+
+    void *dl = dlopen("/opt/vc/lib/libbcm_host.so", RTLD_NOW);
+
+    if (dl != NULL)
+    {
+        bhgpa func = dlsym(dl, "bcm_host_get_peripheral_address");
+
+        if (func != NULL)
+        {
+            base = func();
+        }
+
+        dlclose(dl);
+    }
+
+    return base;
+}
+
 
 //-----------------------------------------------------------------------
 
@@ -59,6 +89,24 @@ main(void)
 
         printf("revision: %04x\n", info.revisionNumber);
         printf("peripheral base: 0x%"PRIX32"\n", info.peripheralBase);
+
+        printf("\n");
+        printf("checking peripheral base against bcm_host library\n");
+
+        uint32_t base = getPeripheralBaseFromBcmHost();
+
+        if (base == 0)
+        {
+            printf("... function not found in bcm_host library\n");
+        }
+        else if (base != info.peripheralBase)
+        {
+            printf("... error peripheral base does not match base from bcm_host\n");
+        }
+        else
+        {
+            printf("... peripheral base matches base from bcm_host\n");
+        }
     }
     else
     {
