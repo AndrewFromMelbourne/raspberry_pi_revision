@@ -498,7 +498,7 @@ const char *
 raspberryPiProcessorToString(
     RASPBERRY_PI_PROCESSOR_T processor)
 {
-    const char *string = "unkown";
+    const char *string = "unknown";
 
     switch(processor)
     {
@@ -526,7 +526,7 @@ const char *
 raspberryPiI2CDeviceToString(
     RASPBERRY_PI_I2C_DEVICE_T i2cDevice)
 {
-    const char *string = "unkown";
+    const char *string = "unknown";
 
     switch(i2cDevice)
     {
@@ -607,7 +607,7 @@ const char *
 raspberryPiManufacturerToString(
     RASPBERRY_PI_MANUFACTURER_T manufacturer)
 {
-    const char *string = "unkown";
+    const char *string = "unknown";
 
     switch(manufacturer)
     {
