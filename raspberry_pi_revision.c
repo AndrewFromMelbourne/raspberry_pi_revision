@@ -63,7 +63,8 @@
 //     |   0010   |    B+   |    1    | 512 MB |   Sony      |
 //     |   0011   | compute |    1    | 512 MB |   Sony      |
 //     |   0012   |    A+   |    1    | 256 MB |   Sony      |
-//     |   0013   |    B+   |    1    | 512 MB |   ????      |
+//     |   0013   |    B+   |    1    | 512 MB |   Embest    |
+//     |   0014   | compute |    1    | 512 MB |   Sony      |
 //     +----------+---------+---------+--------+-------------+
 //
 // If the Raspberry Pi has been over-volted (voiding the warranty) the
@@ -138,7 +139,8 @@ static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
     RPI_512MB,          // 10
     RPI_512MB,          // 11
     RPI_256MB,          // 12
-    RPI_512MB           // 13
+    RPI_512MB,          // 13
+    RPI_512MB           // 14
 };
 
 static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
@@ -179,7 +181,8 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
     RPI_I2C_1,              // 10
     RPI_I2C_1,              // 11
     RPI_I2C_1,              // 12
-    RPI_I2C_1               // 13
+    RPI_I2C_1,              // 13
+    RPI_I2C_1               // 14
 };
 
 //-------------------------------------------------------------------------
@@ -216,7 +219,8 @@ static RASPBERRY_PI_MODEL_T revisionToModel[] =
     RPI_MODEL_B_PLUS,   // 10
     RPI_COMPUTE_MODULE, // 11
     RPI_MODEL_A_PLUS,   // 12
-    RPI_MODEL_B_PLUS    // 13
+    RPI_MODEL_B_PLUS,   // 13
+    RPI_COMPUTE_MODULE  // 14
 };
 
 //-------------------------------------------------------------------------
@@ -251,7 +255,8 @@ static RASPBERRY_PI_MANUFACTURER_T revisionToManufacturer[] =
     RPI_MANUFACTURER_SONY,    // 10
     RPI_MANUFACTURER_SONY,    // 11
     RPI_MANUFACTURER_SONY,    // 12
-    RPI_MANUFACTURER_UNKNOWN  // 13
+    RPI_MANUFACTURER_EMBEST,  // 13
+    RPI_MANUFACTURER_SONY     // 14
 };
 
 //-------------------------------------------------------------------------
@@ -277,7 +282,8 @@ static int revisionToPcbRevision[] =
     1, // 10
     1, // 11
     1, // 12
-    1  // 13
+    1, // 13
+    1  // 14
 };
 
 //-------------------------------------------------------------------------
