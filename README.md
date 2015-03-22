@@ -71,9 +71,9 @@ e.g.
 
 Revision    : A01041
 
-A - PCB Revison - 1 (first revision)
-B - Model Name - 4 (Model B Pi 2)
-C - Processor - 1 (BCM2836)
-D - Manufacturer - 0 (Sony)
-E - Memory - 2 (1024 MB)
+    A - PCB Revison - 1 (first revision)
+    B - Model Name - 4 (Model B Pi 2)
+    C - Processor - 1 (BCM2836)
+    D - Manufacturer - 0 (Sony)
+    E - Memory - 2 (1024 MB)
 
