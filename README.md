@@ -3,6 +3,8 @@
 C function to decode the Revision: field of /proc/cpuinfo on the Raspberry
 Pi. 
 
+# Known revisions
+
 The file /proc/cpuinfo contains a line such as:-
 
 Revision    : 0003
@@ -47,16 +49,8 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 
 
 |FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|    |    |    |    |    |    |    |AAAA|
-|    |    |    |    |    |BBBB|BBBB|    |
-|    |    |    |    |CCCC|    |    |    |
-|    |    |    |DDDD|    |    |    |    |
-|    |    | EEE|    |    |    |    |    |
-|    |    |F   |    |    |    |    |    |
-|    |   G|    |    |    |    |    |    |
-|    |  H |    |    |    |    |    |    |
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|---:|---:|---:|---:|---:|---:|---:|---:|
+|    |  HG|FEEE|DDDD|CCCC|BBBB|BBBB|AAAA|
 |1098|7654|3210|9876|5432|1098|7654|3210|
 
 | # | bits  |   contains   | values                                     |
