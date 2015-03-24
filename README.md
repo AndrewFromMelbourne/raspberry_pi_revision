@@ -48,10 +48,10 @@ With the release of the Raspberry Pi 2, there is a new encoding of the
 Revision field in /proc/cpuinfo. The bit fields are as follows
 
 
-|FEDC|BA98|7654|3210|FEDC|BA98|7654|3210|
+|``FEDC``|``BA98``|``7654``|``3210``|``FEDC``|``BA98``|``7654``|``3210``|
 |---:|---:|---:|---:|---:|---:|---:|---:|
-|    |  HG|FEEE|DDDD|CCCC|BBBB|BBBB|AAAA|
-|1098|7654|3210|9876|5432|1098|7654|3210|
+|    |  ``HG``|``FEEE``|``DDDD``|``CCCC``|``BBBB``|``BBBB``|``AAAA``|
+|``1098``|``7654``|``3210``|``9876``|``5432``|``1098``|``7654``|``3210``|
 
 | # | bits  |   contains   | values                                     |
 |:-:|:-----:|:-------------|:-------------------------------------------|
