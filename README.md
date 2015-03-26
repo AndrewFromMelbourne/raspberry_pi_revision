@@ -76,4 +76,5 @@ Revision    : A01041
     C - Processor - 1 (BCM2836)
     D - Manufacturer - 0 (Sony)
     E - Memory - 2 (1024 MB)
+    F - Endcoded flag - 1 (encoded cpu info)
 
