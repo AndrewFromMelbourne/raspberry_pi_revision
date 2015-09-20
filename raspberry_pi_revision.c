@@ -274,7 +274,7 @@ static int revisionToPcbRevision[] =
     2, //  7
     2, //  8
     2, //  9
-    2, //  A
+    0, //  A
     0, //  B
     0, //  C
     2, //  D
@@ -329,7 +329,7 @@ trimWhiteSpace(
 
 //-------------------------------------------------------------------------
 
-static int
+int
 getRaspberryPiRevision()
 {
     int raspberryPiRevision = 0;
@@ -368,12 +368,22 @@ int
 getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info)
 {
+    int revision = getRaspberryPiRevision();
+    
+    return getRaspberryPiInformationForRevision(revision, info);
+}
+
+//-------------------------------------------------------------------------
+
+int
+getRaspberryPiInformationForRevision(
+    int revision,
+    RASPBERRY_PI_INFO_T *info)
+{
     int result = 0;
 
     if (info != NULL)
     {
-        int revision = getRaspberryPiRevision();
-
         info->memory = RPI_MEMORY_UNKNOWN;
         info->processor = RPI_PROCESSOR_UNKNOWN;
         info->i2cDevice = RPI_I2C_DEVICE_UNKNOWN;
@@ -436,11 +446,19 @@ getRaspberryPiInformation(
                 }
 
                 info->memory = revisionToMemory[revision];
-                info->processor = RPI_BROADCOM_2835;
                 info->i2cDevice = revisionToI2CDevice[revision];
                 info->model = revisionToModel[revision];
                 info->manufacturer = revisionToManufacturer[revision];
                 info->pcbRevision = revisionToPcbRevision[revision];
+
+                if (info->model == RPI_MODEL_UNKNOWN)
+                {
+                    info->processor = RPI_PROCESSOR_UNKNOWN;
+                }
+                else
+                {
+                    info->processor = RPI_BROADCOM_2835;
+                }
             }
         }
 

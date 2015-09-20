@@ -120,6 +120,14 @@ int
 getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info);
 
+int
+getRaspberryPiInformationForRevision(
+    int revision,
+    RASPBERRY_PI_INFO_T *info);
+
+int
+getRaspberryPiRevision(void);
+
 const char *
 raspberryPiMemoryToString(
     RASPBERRY_PI_MEMORY_T memory);
