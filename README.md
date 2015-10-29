@@ -38,6 +38,7 @@ Known revisions (prior to the Raspberry Pi 2) are:
 |   0012   |    A+   |    1    | 256 MB |   Sony      |
 |   0013   |    B+   |    1    | 512 MB |   Embest    |
 |   0014   | compute |    1    | 512 MB |   Sony      |
+|   0015   |    A+   |    1    | 256 MB |   Sony      |
 
 If the Raspberry Pi has been over-volted (voiding the warranty) the
 revision number will have 100 at the front. e.g. 1000002.
