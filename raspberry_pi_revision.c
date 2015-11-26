@@ -96,6 +96,7 @@
 // +---+-------+--------------+--------------------------------------------+
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
+// |   |       |              | unknown, unknown, Zero                     |
 // | C | 12-15 | Processor    | BCM2835, BCM2836                           |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, unknown, Embest      |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
@@ -199,7 +200,10 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_B_PLUS,
     RPI_MODEL_B_PI_2,
     RPI_MODEL_ALPHA,
-    RPI_COMPUTE_MODULE
+    RPI_COMPUTE_MODULE,
+    RPI_MODEL_UNKNOWN,
+    RPI_MODEL_UNKNOWN,
+    RPI_MODEL_ZERO
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -375,7 +379,7 @@ getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info)
 {
     int revision = getRaspberryPiRevision();
-    
+
     return getRaspberryPiInformationForRevision(revision, info);
 }
 
@@ -421,10 +425,29 @@ getRaspberryPiInformationForRevision(
                 }
 
                 int memoryIndex = (revision & 0x700000) >> 20;
-                info->memory = bitFieldToMemory[memoryIndex];
+                size_t knownMemoryValues = sizeof(bitFieldToMemory)
+                                         / sizeof(bitFieldToMemory[0]);
+
+                if (memoryIndex < knownMemoryValues)
+                {
+                    info->memory = bitFieldToMemory[memoryIndex];
+                }
+                else
+                {
+                    info->memory = RPI_MEMORY_UNKNOWN;
+                }
 
                 int processorIndex = (revision & 0xF000) >> 12;
-                info->processor = bitFieldToProcessor[processorIndex];
+                size_t knownProcessorValues = sizeof(bitFieldToProcessor)
+                                            / sizeof(bitFieldToProcessor[0]);
+                if (processorIndex < knownProcessorValues)
+                {
+                    info->processor = bitFieldToProcessor[processorIndex];
+                }
+                else
+                {
+                    info->processor = RPI_PROCESSOR_UNKNOWN;
+                }
 
                 // If some future firmware changes the Rev number of
                 // older Raspberry Pis, then need to work out the i2c
@@ -433,10 +456,30 @@ getRaspberryPiInformationForRevision(
                 info->i2cDevice = RPI_I2C_1;
 
                 int modelIndex = (revision & 0xFF0) >> 4;
-                info->model = bitFieldToModel[modelIndex];
+                size_t knownModelValues = sizeof(bitFieldToModel)
+                                        / sizeof(bitFieldToModel[0]);
+
+                if (modelIndex < knownModelValues)
+                {
+                    info->model = bitFieldToModel[modelIndex];
+                }
+                else
+                {
+                    info->model = RPI_MODEL_UNKNOWN;
+                }
 
                 int madeByIndex = (revision & 0xF0000) >> 16;
-                info->manufacturer = bitFieldToManufacturer[madeByIndex];
+                size_t knownManufacturerValues = sizeof(bitFieldToManufacturer)
+                                               / sizeof(bitFieldToManufacturer[0]);
+
+                if (madeByIndex < knownManufacturerValues)
+                {
+                    info->manufacturer = bitFieldToManufacturer[madeByIndex];
+                }
+                else
+                {
+                    info->manufacturer = RPI_MANUFACTURER_UNKNOWN;
+                }
 
                 info->pcbRevision = revision & 0xF;
             }
@@ -622,6 +665,11 @@ raspberryPiModelToString(
     case RPI_COMPUTE_MODULE:
 
         string = "Compute Module";
+        break;
+
+    case RPI_MODEL_ZERO:
+
+        string = "Model Zero";
         break;
 
     default:
