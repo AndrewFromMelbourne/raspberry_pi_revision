@@ -72,7 +72,7 @@ e.g.
 
 Revision    : A01041
 
-    A - PCB Revison - 1 (first revision)
+    A - PCB Revision - 1 (first revision)
     B - Model Name - 4 (Model B Pi 2)
     C - Processor - 1 (BCM2836)
     D - Manufacturer - 0 (Sony)
@@ -81,7 +81,7 @@ Revision    : A01041
 
 Revision    : 900092
 
-    A - PCB Revison - 2 (second revision)
+    A - PCB Revision - 2 (second revision)
     B - Model Name - 9 (Model Zero)
     C - Processor - 0 (BCM2835)
     D - Manufacturer - 0 (Sony)
