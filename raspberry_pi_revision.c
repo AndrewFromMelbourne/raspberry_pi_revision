@@ -119,6 +119,24 @@
 // E - Memory - 2 (1024 MB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
+// Revision    : A21041
+//
+// A - PCB Revision - 1 (first revision)
+// B - Model Name - 4 (Model B Pi 2)
+// C - Processor - 1 (BCM2836)
+// D - Manufacturer - 2 (Embest)
+// E - Memory - 2 (1024 MB)
+// F - Endcoded flag - 1 (encoded cpu info)
+//
+// Revision    : 900092
+//
+// A - PCB Revision - 2 (second revision)
+// B - Model Name - 9 (Model Zero)
+// C - Processor - 0 (BCM2835)
+// D - Manufacturer - 0 (Sony)
+// E - Memory - 1 (512 MB)
+// F - Endcoded flag - 1 (encoded cpu info)
+//
 //-------------------------------------------------------------------------
 
 static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
