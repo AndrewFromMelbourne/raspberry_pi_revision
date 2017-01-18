@@ -96,9 +96,9 @@
 // +---+-------+--------------+--------------------------------------------+
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
-// |   |       |              | unknown, unknown, Zero                     |
+// |   |       |              | unknown, unknown, Zero, Compute Module 3   |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
-// | D | 16-19 | Manufacturer | Sony, Egoman, Embest, unknown, Embest      |
+// | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest   |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
 // | F | 23-23 | encoded flag | (if set, revision is a bit field)          |
 // | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)          |
@@ -231,7 +231,8 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_COMPUTE_MODULE,
     RPI_MODEL_UNKNOWN,
     RPI_MODEL_B_PI_3,
-    RPI_MODEL_ZERO
+    RPI_MODEL_ZERO,
+    RPI_COMPUTE_MODULE_3
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -267,7 +268,7 @@ static RASPBERRY_PI_MANUFACTURER_T bitFieldToManufacturer[] =
     RPI_MANUFACTURER_SONY,
     RPI_MANUFACTURER_EGOMAN,
     RPI_MANUFACTURER_EMBEST,
-    RPI_MANUFACTURER_UNKNOWN,
+    RPI_MANUFACTURER_SONY_JAPAN,
     RPI_MANUFACTURER_EMBEST
 };
 
@@ -715,6 +716,10 @@ raspberryPiModelToString(
         string = "Model B Pi 3";
         break;
 
+    case RPI_COMPUTE_MODULE_3:
+
+        string = "Compute Module 3";
+        break;
     default:
 
         break;
@@ -751,6 +756,11 @@ raspberryPiManufacturerToString(
     case RPI_MANUFACTURER_EMBEST:
 
         string = "Embest";
+        break;
+
+    case RPI_MANUFACTURER_SONY_JAPAN:
+
+        string = "Sony Japan";
         break;
 
     default:
