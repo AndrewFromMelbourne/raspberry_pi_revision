@@ -1,8 +1,16 @@
-OBJS=raspberry_pi_revision.o test.o
-BIN=test
-
 CFLAGS+=-Wall -g -O3
-LDFLAGS+=-ldl
+
+RPR_OBJS=raspberry_pi_revision.o
+
+TEST_BIN=test
+TEST_LDFLAGS=$(LDFLAGS) -ldl
+TEST_OBJS=test.o
+
+TABLE_BIN=table
+TABLE_OBJS=table.o
+
+OBJS=$(RPR_OBJS) $(TEST_OBJS) $(TABLE_OBJS)
+BIN=$(TEST_BIN) $(TABLE_BIN)
 
 all: $(BIN)
 
@@ -10,9 +18,11 @@ all: $(BIN)
 	@rm -f $@ 
 	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@ -Wno-deprecated-declarations
 
-$(BIN): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+$(TEST_BIN): $(TEST_OBJS) $(RPR_OBJS)
+	$(CC) -o $@ $(TEST_OBJS) $(RPR_OBJS) $(TEST_LDFLAGS)
+
+$(TABLE_BIN): $(TABLE_OBJS) $(RPR_OBJS)
+	$(CC) -o $@ $(TABLE_OBJS) $(RPR_OBJS) $(LDFLAGS)
 
 clean:
-	@rm -f $(OBJS)
-	@rm -f $(BIN)
+	@rm -f $(OBJS) $(TEST_BIN) $(TABLE_BIN)

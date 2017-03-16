@@ -65,7 +65,7 @@
 //     |   0012   |    A+   |    1    | 256 MB |   Sony      |
 //     |   0013   |    B+   |    1    | 512 MB |   Embest    |
 //     |   0014   | compute |    1    | 512 MB |   Sony      |
-//     |   0015   |    A+   |    1    | 256 MB |   Sony      |
+//     |   0015   |    A+   |    1    | 512 MB |   Sony      |
 //     +----------+---------+---------+--------+-------------+
 //
 // If the Raspberry Pi has been over-volted (voiding the warranty) the
@@ -97,6 +97,7 @@
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
 // |   |       |              | unknown, unknown, Zero, Compute Module 3   |
+// |   |       |              | unknown, Zero W                            |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest   |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
@@ -171,7 +172,7 @@ static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
     RPI_256MB,          // 12
     RPI_512MB,          // 13
     RPI_512MB,          // 14
-    RPI_256MB           // 15
+    RPI_512MB           // 15
 };
 
 static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
@@ -232,7 +233,9 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_UNKNOWN,
     RPI_MODEL_B_PI_3,
     RPI_MODEL_ZERO,
-    RPI_COMPUTE_MODULE_3
+    RPI_COMPUTE_MODULE_3,
+    RPI_MODEL_UNKNOWN,
+    RPI_MODEL_ZERO_W
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -720,6 +723,12 @@ raspberryPiModelToString(
 
         string = "Compute Module 3";
         break;
+
+    case RPI_MODEL_ZERO_W:
+
+        string = "Model Zero W";
+        break;
+
     default:
 
         break;
