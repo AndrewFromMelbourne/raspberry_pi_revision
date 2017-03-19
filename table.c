@@ -32,11 +32,85 @@
 
 //-----------------------------------------------------------------------
 
+typedef struct
+{
+    int width;
+    int padding;
+    const char* label;
+} FORMAT_T;
+
+//-----------------------------------------------------------------------
+
+void
+printTableSeparator(
+    FORMAT_T *format,
+    int formats)
+{
+    putchar(' ');
+
+    int f = 0;
+    for (f = 0 ; f < formats ; f++)
+    {
+        putchar('+');
+
+        int d;
+        int dashes = format[f].width + format[f].padding + 2;
+
+        for (d = 0 ; d < dashes ; d++)
+        {
+            putchar('-');
+        }
+    }
+    printf("+\n");
+}
+
+//-----------------------------------------------------------------------
+
+
+void
+printTableHeader(
+    FORMAT_T *format,
+    int formats)
+{
+    int f = 0;
+
+    for (f = 0 ; f < formats ; f++)
+    {
+        printf(" | %-*s", format[f].width, format[f].label);
+
+        if (format[f].padding > 0)
+        {
+            printf("%-*c", format[f].padding, ' ');
+        }
+    }
+    printf(" |\n");
+}
+
+//-----------------------------------------------------------------------
+
 void
 printRevisionTable(
     int *revisions,
     size_t numberOfRevisions)
 {
+    static FORMAT_T format[] =
+    {
+        {  8, 0, "Revision" },
+        { 16, 0, "Model Name" },
+        {  1, 0, "R" },
+        {  7, 0, "Memory" },
+        { 12, 0, "Manufacturer" },
+        { 16, 0, "Processor" },
+        { 10, 0, "I2C Device" },
+        {  8, 2, "Base" }
+    };
+
+    int formats = sizeof(format) / sizeof(format[0]);
+
+    printTableSeparator(format, formats);
+    printTableHeader(format, formats);
+    printTableSeparator(format, formats);
+
     size_t i;
     for (i = 0 ; i < numberOfRevisions ;  i++)
     {
@@ -48,16 +122,36 @@ printRevisionTable(
             continue;
         }
 
-        printf(" | %08X", revision);
-        printf(" | %16s", raspberryPiModelToString(info.model));
-        printf(" | %d", info.pcbRevision);
-        printf(" | %7s", raspberryPiMemoryToString(info.memory));
-        printf(" | %10s", raspberryPiManufacturerToString(info.manufacturer));
-        printf(" | %16s", raspberryPiProcessorToString(info.processor));
-        printf(" | %10s", raspberryPiI2CDeviceToString(info.i2cDevice));
-        printf(" | 0x%08" PRIX32 "", info.peripheralBase);
+        int f = 0;
+
+        printf(" | %.*X",
+               format[f++].width,
+               revision);
+        printf(" | %-*s",
+               format[f++].width,
+               raspberryPiModelToString(info.model));
+        printf(" | %.*d",
+               format[f++].width,
+               info.pcbRevision);
+        printf(" | %*s",
+               format[f++].width,
+               raspberryPiMemoryToString(info.memory));
+        printf(" | %-*s",
+               format[f++].width,
+               raspberryPiManufacturerToString(info.manufacturer));
+        printf(" | %*s",
+               format[f++].width,
+               raspberryPiProcessorToString(info.processor));
+        printf(" | %*s",
+               format[f++].width,
+               raspberryPiI2CDeviceToString(info.i2cDevice));
+        printf(" | 0x%.*" PRIX32 "",
+               format[f++].width,
+               info.peripheralBase);
         printf(" |\n");
     }
+
+    printTableSeparator(format, formats);
     printf("\n");
 }
 
@@ -102,8 +196,8 @@ main(void)
     {
         0x900021,
         0x900092,
-        0x920093,
         0x900093,
+        0x920093,
         0x9000C1,
         0xA01041,
         0xA21041,
