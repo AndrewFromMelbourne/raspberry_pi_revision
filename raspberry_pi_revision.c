@@ -96,8 +96,8 @@
 // +---+-------+--------------+--------------------------------------------+
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
-// |   |       |              | unknown, unknown, Zero, Compute Module 3   |
-// |   |       |              | unknown, Zero W                            |
+// |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
+// |   |       |              | unknown, Zero W, B Pi3+                    |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest   |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
@@ -235,7 +235,8 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_ZERO,       // 9
     RPI_COMPUTE_MODULE_3, // A
     RPI_MODEL_UNKNOWN,    // B
-    RPI_MODEL_ZERO_W      // C
+    RPI_MODEL_ZERO_W,     // C
+    RPI_MODEL_B_PI_3_PLUS // 8
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -732,6 +733,11 @@ raspberryPiModelToString(
     case RPI_MODEL_ZERO_W:
 
         string = "Model Zero W";
+        break;
+
+    case RPI_MODEL_B_PI_3_PLUS:
+
+        string = "Model B Pi 3+";
         break;
 
     default:
