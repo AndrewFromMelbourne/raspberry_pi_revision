@@ -15,30 +15,31 @@ Revision    : 0003
 that holds the revision number of the Raspberry Pi.
 Known revisions (prior to the Raspberry Pi 2) are:
 
-| Revision |  Model  | PCB Rev | Memory | Manufacture |
-|:--------:|:-------:|:-------:|:------:|:------------|
-|   0000   |         |         |        |             |
-|   0001   |         |         |        |             |
-|   0002   |    B    |    1    | 256 MB |             |
-|   0003   |    B    |    1    | 256 MB |             |
-|   0004   |    B    |    2    | 256 MB |   Sony      |
-|   0005   |    B    |    2    | 256 MB |   Qisda     |
-|   0006   |    B    |    2    | 256 MB |   Egoman    |
-|   0007   |    A    |    2    | 256 MB |   Egoman    |
-|   0008   |    A    |    2    | 256 MB |   Sony      |
-|   0009   |    A    |    2    | 256 MB |   Qisda     |
-|   000a   |         |         |        |             |
-|   000b   |         |         |        |             |
-|   000c   |         |         |        |             |
-|   000d   |    B    |    2    | 512 MB |   Egoman    |
-|   000e   |    B    |    2    | 512 MB |   Sony      |
-|   000f   |    B    |    2    | 512 MB |   Qisda     |
-|   0010   |    B+   |    1    | 512 MB |   Sony      |
-|   0011   | compute |    1    | 512 MB |   Sony      |
-|   0012   |    A+   |    1    | 256 MB |   Sony      |
-|   0013   |    B+   |    1    | 512 MB |   Embest    |
-|   0014   | compute |    1    | 512 MB |   Sony      |
-|   0015   |    A+   |    1    | 512 MB |   Sony      |
+| Revision |  Model  | PCB Rev | Memory | Manufacturer |
+|:--------:|:-------:|:-------:|:------:|:-------------|
+|   0000   |         |         |        |              |
+|   0001   |         |         |        |              |
+|   0002   |    B    |    1    | 256 MB |   Egoman     |
+|   0003   |    B    |    1    | 256 MB |   Egoman     |
+|   0004   |    B    |    2    | 256 MB |   Sony UK    |
+|   0005   |    B    |    2    | 256 MB |   Qisda      |
+|   0006   |    B    |    2    | 256 MB |   Egoman     |
+|   0007   |    A    |    2    | 256 MB |   Egoman     |
+|   0008   |    A    |    2    | 256 MB |   Sony UK    |
+|   0009   |    A    |    2    | 256 MB |   Qisda      |
+|   000a   |         |         |        |              |
+|   000b   |         |         |        |              |
+|   000c   |         |         |        |              |
+|   000d   |    B    |    2    | 512 MB |   Egoman     |
+|   000e   |    B    |    2    | 512 MB |   Sony UK    |
+|   000f   |    B    |    2    | 512 MB |   Egoman     |
+|   0010   |    B+   |    1    | 512 MB |   Sony UK    |
+|   0011   | compute |    1    | 512 MB |   Sony UK    |
+|   0012   |    A+   |    1    | 256 MB |   Sony UK    |
+|   0013   |    B+   |    1    | 512 MB |   Embest     |
+|   0014   | compute |    1    | 512 MB |   Embest     |
+|   0015   |    A+   |    1    | 256 MB |   Embest     |
+|   0015   |    A+   |    1    | 512 MB |   Embest     |
 
 If the Raspberry Pi has been over-volted (voiding the warranty) the
 revision number will have 100 at the front. e.g. 1000002.
@@ -59,7 +60,7 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 | A | 00-03 | PCB Revision | (the pcb revision number)                                                                               |
 | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+ |
 | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                                                                               |
-| D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest                                                                |
+| D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium                                                    |
 | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                                                                                 |
 | F | 23-23 | encoded flag | (if set, revision is a bit field)                                                                       |
 | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)                                                                       |
@@ -106,3 +107,11 @@ Revision    : A02082
     E - Memory - 2 (1024 MB)
     F - Endcoded flag - 1 (encoded cpu info)
 
+Revision    : A52082
+
+    A - PCB Revision - 2 (second revision)
+    B - Model Name - 8 (Model B Pi 3)
+    C - Processor - 2 (BCM2837)
+    D - Manufacturer - 5 (Stadium)
+    E - Memory - 2 (1024 MB)
+    F - Endcoded flag - 1 (encoded cpu info)
