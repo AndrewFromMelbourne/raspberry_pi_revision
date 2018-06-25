@@ -41,32 +41,33 @@
 // that holds the revision number of the Raspberry Pi.
 // Known revisions (prior to the Raspberry Pi 2) are:
 //
-//     +----------+---------+---------+--------+-------------+
-//     | Revision |  Model  | PCB Rev | Memory | Manufacture |
-//     +----------+---------+---------+--------+-------------+
-//     |   0000   |         |         |        |             |
-//     |   0001   |         |         |        |             |
-//     |   0002   |    B    |    1    | 256 MB |             |
-//     |   0003   |    B    |    1    | 256 MB |             |
-//     |   0004   |    B    |    2    | 256 MB |   Sony      |
-//     |   0005   |    B    |    2    | 256 MB |   Qisda     |
-//     |   0006   |    B    |    2    | 256 MB |   Egoman    |
-//     |   0007   |    A    |    2    | 256 MB |   Egoman    |
-//     |   0008   |    A    |    2    | 256 MB |   Sony      |
-//     |   0009   |    A    |    2    | 256 MB |   Qisda     |
-//     |   000a   |         |         |        |             |
-//     |   000b   |         |         |        |             |
-//     |   000c   |         |         |        |             |
-//     |   000d   |    B    |    2    | 512 MB |   Egoman    |
-//     |   000e   |    B    |    2    | 512 MB |   Sony      |
-//     |   000f   |    B    |    2    | 512 MB |   Qisda     |
-//     |   0010   |    B+   |    1    | 512 MB |   Sony      |
-//     |   0011   | compute |    1    | 512 MB |   Sony      |
-//     |   0012   |    A+   |    1    | 256 MB |   Sony      |
-//     |   0013   |    B+   |    1    | 512 MB |   Embest    |
-//     |   0014   | compute |    1    | 512 MB |   Sony      |
-//     |   0015   |    A+   |    1    | 512 MB |   Sony      |
-//     +----------+---------+---------+--------+-------------+
+//     +----------+---------+---------+--------+--------------+
+//     | Revision |  Model  | PCB Rev | Memory | Manufacturer |
+//     +----------+---------+---------+--------+--------------+
+//     |   0000   |         |         |        |              |
+//     |   0001   |         |         |        |              |
+//     |   0002   |    B    |    1    | 256 MB |   Egoman     |
+//     |   0003   |    B    |    1    | 256 MB |   Egoman     |
+//     |   0004   |    B    |    2    | 256 MB |   Sony UK    |
+//     |   0005   |    B    |    2    | 256 MB |   Qisda      |
+//     |   0006   |    B    |    2    | 256 MB |   Egoman     |
+//     |   0007   |    A    |    2    | 256 MB |   Egoman     |
+//     |   0008   |    A    |    2    | 256 MB |   Sony UK    |
+//     |   0009   |    A    |    2    | 256 MB |   Qisda      |
+//     |   000a   |         |         |        |              |
+//     |   000b   |         |         |        |              |
+//     |   000c   |         |         |        |              |
+//     |   000d   |    B    |    2    | 512 MB |   Egoman     |
+//     |   000e   |    B    |    2    | 512 MB |   Sony UK    |
+//     |   000f   |    B    |    2    | 512 MB |   Egoman     |
+//     |   0010   |    B+   |    1    | 512 MB |   Sony UK    |
+//     |   0011   | compute |    1    | 512 MB |   Sony UK    |
+//     |   0012   |    A+   |    1    | 256 MB |   Sony UK    |
+//     |   0013   |    B+   |    1    | 512 MB |   Embest     |
+//     |   0014   | compute |    1    | 512 MB |   Embest     |
+//     |   0015   |    A+   |    1    | 256 MB |   Embest     |
+//     |   0015   |    A+   |    1    | 512 MB |   Embest     |
+//     +----------+---------+---------+--------+--------------+
 //
 // If the Raspberry Pi has been over-volted (voiding the warranty) the
 // revision number will have 100 at the front. e.g. 1000002.
@@ -99,7 +100,8 @@
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
 // |   |       |              | unknown, Zero W, B Pi3+                    |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
-// | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest   |
+// | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
+// |   |       |              | Stadium                                    |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
 // | F | 23-23 | encoded flag | (if set, revision is a bit field)          |
 // | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)          |
@@ -107,7 +109,8 @@
 // +---+-------+--------------+--------------------------------------------+
 //
 // Also, due to some early issues the warranty bit has been move from bit
-// 24 to bit 25 of the revision number (i.e. 0x2000000).
+// 24 to bit 25 of the revision number (i.e. 0x2000000). It is also possible
+// that both bits may be set (i.e. 0x3000000).
 //
 // e.g.
 //
@@ -147,6 +150,26 @@
 // E - Memory - 2 (1024 MB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
+// Revision    : A52082
+//
+// A - PCB Revision - 2 (second revision)
+// B - Model Name - 8 (Model B Pi 3)
+// C - Processor - 2 (BCM2837)
+// D - Manufacturer - 5 (Stadium)
+// E - Memory - 2 (1024 MB)
+// F - Endcoded flag - 1 (encoded cpu info)
+//
+// Revision    : 03A01041
+//
+// A - PCB Revision - 1 (second revision)
+// B - Model Name - 4 (Model B Pi 2)
+// C - Processor - 1 (BCM2836)
+// D - Manufacturer - 0 (Sony UK)
+// E - Memory - 2 (1024 MB)
+// F - Endcoded flag - 1 (encoded cpu info)
+// G - Pre-Pi2 Warranty - 1 (void)
+// H - Post-Pi2 Warranty - 1 (void)
+
 //-------------------------------------------------------------------------
 
 static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
@@ -236,7 +259,7 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_COMPUTE_MODULE_3, // A
     RPI_MODEL_UNKNOWN,    // B
     RPI_MODEL_ZERO_W,     // C
-    RPI_MODEL_B_PI_3_PLUS // 8
+    RPI_MODEL_B_PI_3_PLUS // D
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -269,37 +292,38 @@ static RASPBERRY_PI_MODEL_T revisionToModel[] =
 
 static RASPBERRY_PI_MANUFACTURER_T bitFieldToManufacturer[] =
 {
-    RPI_MANUFACTURER_SONY,       // 0
+    RPI_MANUFACTURER_SONY_UK,    // 0
     RPI_MANUFACTURER_EGOMAN,     // 1
     RPI_MANUFACTURER_EMBEST,     // 2
     RPI_MANUFACTURER_SONY_JAPAN, // 3
-    RPI_MANUFACTURER_EMBEST      // 4
+    RPI_MANUFACTURER_EMBEST,     // 4
+    RPI_MANUFACTURER_STADIUM     // 5
 };
 
 static RASPBERRY_PI_MANUFACTURER_T revisionToManufacturer[] =
 {
     RPI_MANUFACTURER_UNKNOWN, //  0
     RPI_MANUFACTURER_UNKNOWN, //  1
-    RPI_MANUFACTURER_UNKNOWN, //  2
-    RPI_MANUFACTURER_UNKNOWN, //  3
-    RPI_MANUFACTURER_SONY,    //  4
+    RPI_MANUFACTURER_EGOMAN,  //  2
+    RPI_MANUFACTURER_EGOMAN,  //  3
+    RPI_MANUFACTURER_SONY_UK, //  4
     RPI_MANUFACTURER_QISDA,   //  5
     RPI_MANUFACTURER_EGOMAN,  //  6
     RPI_MANUFACTURER_EGOMAN,  //  7
-    RPI_MANUFACTURER_SONY,    //  8
+    RPI_MANUFACTURER_SONY_UK, //  8
     RPI_MANUFACTURER_QISDA,   //  9
     RPI_MANUFACTURER_UNKNOWN, //  A
     RPI_MANUFACTURER_UNKNOWN, //  B
     RPI_MANUFACTURER_UNKNOWN, //  C
     RPI_MANUFACTURER_EGOMAN,  //  D
-    RPI_MANUFACTURER_SONY,    //  E
-    RPI_MANUFACTURER_QISDA,   //  F
-    RPI_MANUFACTURER_SONY,    // 10
-    RPI_MANUFACTURER_SONY,    // 11
-    RPI_MANUFACTURER_SONY,    // 12
+    RPI_MANUFACTURER_SONY_UK, //  E
+    RPI_MANUFACTURER_EGOMAN,  //  F
+    RPI_MANUFACTURER_SONY_UK, // 10
+    RPI_MANUFACTURER_SONY_UK, // 11
+    RPI_MANUFACTURER_SONY_UK, // 12
     RPI_MANUFACTURER_EMBEST,  // 13
-    RPI_MANUFACTURER_SONY,    // 14
-    RPI_MANUFACTURER_SONY     // 15
+    RPI_MANUFACTURER_EMBEST,  // 14
+    RPI_MANUFACTURER_EMBEST   // 15
 };
 
 //-------------------------------------------------------------------------
@@ -758,9 +782,9 @@ raspberryPiManufacturerToString(
 
     switch(manufacturer)
     {
-    case RPI_MANUFACTURER_SONY:
+    case RPI_MANUFACTURER_SONY_UK:
 
-        string = "Sony";
+        string = "Sony UK";
         break;
 
     case RPI_MANUFACTURER_EGOMAN:
@@ -781,6 +805,11 @@ raspberryPiManufacturerToString(
     case RPI_MANUFACTURER_SONY_JAPAN:
 
         string = "Sony Japan";
+        break;
+
+    case RPI_MANUFACTURER_STADIUM:
+
+        string = "Stadium";
         break;
 
     default:
