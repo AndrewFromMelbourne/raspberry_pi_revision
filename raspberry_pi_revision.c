@@ -98,7 +98,7 @@
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
-// |   |       |              | unknown, Zero W, B Pi3+                    |
+// |   |       |              | unknown, Zero W, B Pi3+, A Pi3+            |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
@@ -246,20 +246,21 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
 
 static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
 {
-    RPI_MODEL_A,          // 0
-    RPI_MODEL_B,          // 1
-    RPI_MODEL_A_PLUS,     // 2
-    RPI_MODEL_B_PLUS,     // 3
-    RPI_MODEL_B_PI_2,     // 4
-    RPI_MODEL_ALPHA,      // 5
-    RPI_COMPUTE_MODULE,   // 6
-    RPI_MODEL_UNKNOWN,    // 7
-    RPI_MODEL_B_PI_3,     // 8
-    RPI_MODEL_ZERO,       // 9
-    RPI_COMPUTE_MODULE_3, // A
-    RPI_MODEL_UNKNOWN,    // B
-    RPI_MODEL_ZERO_W,     // C
-    RPI_MODEL_B_PI_3_PLUS // D
+    RPI_MODEL_A,           // 0
+    RPI_MODEL_B,           // 1
+    RPI_MODEL_A_PLUS,      // 2
+    RPI_MODEL_B_PLUS,      // 3
+    RPI_MODEL_B_PI_2,      // 4
+    RPI_MODEL_ALPHA,       // 5
+    RPI_COMPUTE_MODULE,    // 6
+    RPI_MODEL_UNKNOWN,     // 7
+    RPI_MODEL_B_PI_3,      // 8
+    RPI_MODEL_ZERO,        // 9
+    RPI_COMPUTE_MODULE_3,  // A
+    RPI_MODEL_UNKNOWN,     // B
+    RPI_MODEL_ZERO_W,      // C
+    RPI_MODEL_B_PI_3_PLUS, // D
+    RPI_MODEL_A_PI_3_PLUS  // E
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -762,6 +763,11 @@ raspberryPiModelToString(
     case RPI_MODEL_B_PI_3_PLUS:
 
         string = "Model B Pi 3+";
+        break;
+
+    case RPI_MODEL_A_PI_3_PLUS:
+
+        string = "Model A Pi 3+";
         break;
 
     default:
