@@ -55,16 +55,16 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 |    |  ``HG``|``FEEE``|``DDDD``|``CCCC``|``BBBB``|``BBBB``|``AAAA``|
 |``1098``|``7654``|``3210``|``9876``|``5432``|``1098``|``7654``|``3210``|
 
-| # | bits  |   contains   | values                                                                                                       |
-|:-:|:-----:|:-------------|:-------------------------------------------------------------------------------------------------------------|
-| A | 00-03 | PCB Revision | (the pcb revision number)                                                                                    |
-| B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+ |
-| C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                                                                                    |
-| D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium                                                         |
-| E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                                                                                      |
-| F | 23-23 | encoded flag | (if set, revision is a bit field)                                                                            |
-| G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)                                                                            |
-| H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)                                                                           |
+| # | bits  |   contains   | values                                                            |
+|:-:|:-----:|:-------------|:------------------------------------------------------------------|
+| A | 00-03 | PCB Revision | (the pcb revision number)                                         |
+| B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+, unknown, CM3+ |
+| C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                                         |
+| D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium              |
+| E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                                           |
+| F | 23-23 | encoded flag | (if set, revision is a bit field)                                 |
+| G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)                                 |
+| H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)                                |
 
 Also, due to some early issues the warranty bit has been move from bit
 24 to bit 25 of the revision number (i.e. 0x2000000).
