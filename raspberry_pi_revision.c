@@ -773,6 +773,11 @@ raspberryPiModelToString(
         string = "Model A Pi 3+";
         break;
 
+    case RPI_COMPUTE_MODULE_3_PLUS:
+
+        string = "Compute Module 3+";
+		break;
+
     default:
 
         break;
