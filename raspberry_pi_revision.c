@@ -99,11 +99,12 @@
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
 // |   |       |              | unknown, Zero W, B Pi3+, A Pi3+, unknown,  |
-// |   |       |              | Compute Module 3+                          |
-// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837                  |
+// |   |       |              | Compute Module 3+, B Pi4                   |
+// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2838         |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
-// | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB                    |
+// | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, |
+// |   |       |              | 8192 MB                                    |
 // | F | 23-23 | encoded flag | (if set, revision is a bit field)          |
 // | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)          |
 // | H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)         |
@@ -170,6 +171,15 @@
 // F - Endcoded flag - 1 (encoded cpu info)
 // G - Pre-Pi2 Warranty - 1 (void)
 // H - Post-Pi2 Warranty - 1 (void)
+//
+// Revision    : B03111
+//
+// A - PCB Revision - 1 (first revision)
+// B - Model Name - 17 (Model B Pi 4)
+// C - Processor - 3 (BCM2838)
+// D - Manufacturer - 0 (Sony UK)
+// E - Memory - 32 (2048 MB)
+// F - Endcoded flag - 1 (encoded cpu info)
 
 //-------------------------------------------------------------------------
 
@@ -201,9 +211,12 @@ static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
 
 static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
 {
-    RPI_256MB, // 0
-    RPI_512MB, // 1
-    RPI_1024MB // 2
+    RPI_256MB,  // 0
+    RPI_512MB,  // 1
+    RPI_1024MB, // 2
+    RPI_2048MB, // 3
+    RPI_4096MB, // 4
+    RPI_8192MB, // 5
 };
 
 //-------------------------------------------------------------------------
@@ -212,7 +225,8 @@ static RASPBERRY_PI_PROCESSOR_T bitFieldToProcessor[] =
 {
     RPI_BROADCOM_2835, // 0
     RPI_BROADCOM_2836, // 1
-    RPI_BROADCOM_2837  // 2
+    RPI_BROADCOM_2837, // 2
+    RPI_BROADCOM_2838, // 3
 };
 
 //-------------------------------------------------------------------------
@@ -263,7 +277,8 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_B_PI_3_PLUS,    // D
     RPI_MODEL_A_PI_3_PLUS,    // E
     RPI_MODEL_UNKNOWN,        // F
-    RPI_COMPUTE_MODULE_3_PLUS // 10
+    RPI_COMPUTE_MODULE_3_PLUS,// 10
+    RPI_MODEL_B_PI_4,         // 11
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -629,6 +644,21 @@ raspberryPiMemoryToString(
         string = "1024 MB";
         break;
 
+    case RPI_2048MB:
+
+        string = "2048 MB";
+        break;
+
+    case RPI_4096MB:
+
+        string = "4096 MB";
+        break;
+
+    case RPI_8192MB:
+
+        string = "8192 MB";
+        break;
+
     default:
 
         break;
@@ -660,6 +690,11 @@ raspberryPiProcessorToString(
     case RPI_BROADCOM_2837:
 
         string = "Broadcom BCM2837";
+        break;
+
+    case RPI_BROADCOM_2838:
+
+        string = "Broadcom BCM2838";
         break;
 
     default:
@@ -777,6 +812,11 @@ raspberryPiModelToString(
 
         string = "Compute Module 3+";
 		break;
+
+    case RPI_MODEL_B_PI_4:
+
+        string = "Model B Pi 4";
+        break;
 
     default:
 
