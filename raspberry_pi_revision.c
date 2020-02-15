@@ -100,7 +100,7 @@
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
 // |   |       |              | unknown, Zero W, B Pi3+, A Pi3+, unknown,  |
 // |   |       |              | Compute Module 3+, B Pi4                   |
-// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2838         |
+// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711         |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, |
@@ -176,7 +176,7 @@
 //
 // A - PCB Revision - 1 (first revision)
 // B - Model Name - 17 (Model B Pi 4)
-// C - Processor - 3 (BCM2838)
+// C - Processor - 3 (BCM2711)
 // D - Manufacturer - 0 (Sony UK)
 // E - Memory - 32 (2048 MB)
 // F - Endcoded flag - 1 (encoded cpu info)
@@ -226,7 +226,7 @@ static RASPBERRY_PI_PROCESSOR_T bitFieldToProcessor[] =
     RPI_BROADCOM_2835, // 0
     RPI_BROADCOM_2836, // 1
     RPI_BROADCOM_2837, // 2
-    RPI_BROADCOM_2838, // 3
+    RPI_BROADCOM_2711, // 3
 };
 
 //-------------------------------------------------------------------------
@@ -261,24 +261,24 @@ static RASPBERRY_PI_I2C_DEVICE_T revisionToI2CDevice[] =
 
 static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
 {
-    RPI_MODEL_A,              // 0
-    RPI_MODEL_B,              // 1
-    RPI_MODEL_A_PLUS,         // 2
-    RPI_MODEL_B_PLUS,         // 3
-    RPI_MODEL_B_PI_2,         // 4
-    RPI_MODEL_ALPHA,          // 5
-    RPI_COMPUTE_MODULE,       // 6
-    RPI_MODEL_UNKNOWN,        // 7
-    RPI_MODEL_B_PI_3,         // 8
-    RPI_MODEL_ZERO,           // 9
-    RPI_COMPUTE_MODULE_3,     // A
-    RPI_MODEL_UNKNOWN,        // B
-    RPI_MODEL_ZERO_W,         // C
-    RPI_MODEL_B_PI_3_PLUS,    // D
-    RPI_MODEL_A_PI_3_PLUS,    // E
-    RPI_MODEL_UNKNOWN,        // F
-    RPI_COMPUTE_MODULE_3_PLUS,// 10
-    RPI_MODEL_B_PI_4,         // 11
+    RPI_MODEL_A,               //  0
+    RPI_MODEL_B,               //  1
+    RPI_MODEL_A_PLUS,          //  2
+    RPI_MODEL_B_PLUS,          //  3
+    RPI_MODEL_B_PI_2,          //  4
+    RPI_MODEL_ALPHA,           //  5
+    RPI_COMPUTE_MODULE,        //  6
+    RPI_MODEL_UNKNOWN,         //  7
+    RPI_MODEL_B_PI_3,          //  8
+    RPI_MODEL_ZERO,            //  9
+    RPI_COMPUTE_MODULE_3,      //  A
+    RPI_MODEL_UNKNOWN,         //  B
+    RPI_MODEL_ZERO_W,          //  C
+    RPI_MODEL_B_PI_3_PLUS,     //  D
+    RPI_MODEL_A_PI_3_PLUS,     //  E
+    RPI_MODEL_UNKNOWN,         //  F
+    RPI_COMPUTE_MODULE_3_PLUS, // 10
+    RPI_MODEL_B_PI_4,          // 11
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -609,9 +609,9 @@ getRaspberryPiInformationForRevision(
             info->peripheralBase = RPI_BROADCOM_2837_PERIPHERAL_BASE;
             break;
 
-        case RPI_BROADCOM_2838:
+        case RPI_BROADCOM_2711:
 
-            info->peripheralBase = RPI_BROADCOM_2838_PERIPHERAL_BASE;
+            info->peripheralBase = RPI_BROADCOM_2711_PERIPHERAL_BASE;
             break;
 
         default:
@@ -697,9 +697,9 @@ raspberryPiProcessorToString(
         string = "Broadcom BCM2837";
         break;
 
-    case RPI_BROADCOM_2838:
+    case RPI_BROADCOM_2711:
 
-        string = "Broadcom BCM2838";
+        string = "Broadcom BCM2711";
         break;
 
     default:
@@ -750,77 +750,77 @@ raspberryPiModelToString(
     {
     case RPI_MODEL_A:
 
-        string = "Model A";
+        string = "Raspberry Pi Model A";
         break;
 
     case RPI_MODEL_B:
 
-        string = "Model B";
+        string = "Raspberry Pi Model B";
         break;
 
     case RPI_MODEL_A_PLUS:
 
-        string = "Model A+";
+        string = "Raspberry Pi Model A Plus";
         break;
 
     case RPI_MODEL_B_PLUS:
 
-        string = "Model B+";
+        string = "Raspberry Pi Model B Plus";
         break;
 
     case RPI_MODEL_B_PI_2:
 
-        string = "Model B Pi 2";
+        string = "Raspberry Pi 2 Model B";
         break;
 
     case RPI_MODEL_ALPHA:
 
-        string = "Alpha";
+        string = "Raspberry Pi Alpha";
         break;
 
     case RPI_COMPUTE_MODULE:
 
-        string = "Compute Module";
+        string = "Raspberry Pi Compute Module";
         break;
 
     case RPI_MODEL_ZERO:
 
-        string = "Model Zero";
+        string = "Raspberry Pi Model Zero";
         break;
 
     case RPI_MODEL_B_PI_3:
 
-        string = "Model B Pi 3";
+        string = "Raspberry Pi 3 Model B";
         break;
 
     case RPI_COMPUTE_MODULE_3:
 
-        string = "Compute Module 3";
+        string = "Raspberry Pi Compute Module 3";
         break;
 
     case RPI_MODEL_ZERO_W:
 
-        string = "Model Zero W";
+        string = "Raspberry Pi Model Zero W";
         break;
 
     case RPI_MODEL_B_PI_3_PLUS:
 
-        string = "Model B Pi 3+";
+        string = "Raspberry Pi 3 Model B Plus";
         break;
 
     case RPI_MODEL_A_PI_3_PLUS:
 
-        string = "Model A Pi 3+";
+        string = "Raspberry Pi 3 Model A Plus";
         break;
 
     case RPI_COMPUTE_MODULE_3_PLUS:
 
-        string = "Compute Module 3+";
-		break;
+        string = "Raspberry Pi Compute Module 3 Plus";
+        break;
 
     case RPI_MODEL_B_PI_4:
 
-        string = "Model B Pi 4";
+        string = "Raspberry Pi Model B Pi 4";
         break;
 
     default:
