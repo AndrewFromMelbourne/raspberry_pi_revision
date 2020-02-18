@@ -820,7 +820,7 @@ raspberryPiModelToString(
 
     case RPI_MODEL_B_PI_4:
 
-        string = "Raspberry Pi Model B Pi 4";
+        string = "Raspberry Pi 4 Model B";
         break;
 
     default:
