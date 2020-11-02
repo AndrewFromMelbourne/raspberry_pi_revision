@@ -96,7 +96,7 @@ printRevisionTable(
     static FORMAT_T format[] =
     {
         {  8, 0, "Revision" },
-        { 16, 0, "Model Name" },
+        { 32, 0, "Model Name" },
         {  1, 0, "R" },
         {  7, 0, "Memory" },
         { 12, 0, "Manufacturer" },
@@ -209,6 +209,7 @@ main(void)
         0xA220A0,
         0xA020D3,
         0xB03111,
+        0xC03130,
     };
 
     printRevisionTable(

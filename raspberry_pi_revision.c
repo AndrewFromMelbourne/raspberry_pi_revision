@@ -99,7 +99,8 @@
 // | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
 // |   |       |              | unknown, Zero W, B Pi3+, A Pi3+, unknown,  |
-// |   |       |              | Compute Module 3+, B Pi4                   |
+// |   |       |              | Compute Module 3+, B Pi4, unknown,         |
+// |   |       |              | Compute Module 4,400                       |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711         |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
@@ -279,6 +280,9 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_UNKNOWN,         //  F
     RPI_COMPUTE_MODULE_3_PLUS, // 10
     RPI_MODEL_B_PI_4,          // 11
+    RPI_MODEL_UNKNOWN,         // 12 
+    RPI_MODEL_400,             // 13 
+    RPI_COMPUTE_MODULE_4,      // 14 
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -821,6 +825,16 @@ raspberryPiModelToString(
     case RPI_MODEL_B_PI_4:
 
         string = "Raspberry Pi 4 Model B";
+        break;
+
+    case RPI_COMPUTE_MODULE_4:
+
+        string = "Raspberry Pi Compute Module 4";
+        break;
+
+    case RPI_MODEL_400:
+
+        string = "Raspberry Pi 400";
         break;
 
     default:
