@@ -96,6 +96,7 @@ typedef enum
     RPI_MODEL_B_PI_4,
     RPI_MODEL_400,
     RPI_COMPUTE_MODULE_4,
+    RPI_MODEL_ZERO_2_W,
 }
 RASPBERRY_PI_MODEL_T;
 
