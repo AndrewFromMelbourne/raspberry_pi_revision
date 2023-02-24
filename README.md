@@ -58,7 +58,7 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 | # | bits  |   contains   | values                                                            |
 |:-:|:-----:|:-------------|:------------------------------------------------------------------|
 | A | 00-03 | PCB Revision | (the pcb revision number)                                         |
-| B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+, unknown, Compute Module 3+, Pi4, Zero 2 W, Compute Module 4, 400 |
+| B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+, unknown, Compute Module 3+, Pi4, Zero 2 W, Compute Module 4, 400, Compute Module 4S (Kunbus Revolution Pi Core/Connect/Flat S/SE) |
 | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711                                |
 | D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium              |
 | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, 8192 MB                |
