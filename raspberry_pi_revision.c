@@ -283,6 +283,7 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_ZERO_2_W,        // 12 
     RPI_MODEL_400,             // 13 
     RPI_COMPUTE_MODULE_4,      // 14 
+    RPI_COMPUTE_MODULE_4S,     // 15
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -839,6 +840,11 @@ raspberryPiModelToString(
     case RPI_MODEL_400:
 
         string = "Raspberry Pi 400";
+        break;
+
+    case RPI_COMPUTE_MODULE_4S:
+
+        string = "Raspberry Pi Compute Module 4S";
         break;
 
     default:
