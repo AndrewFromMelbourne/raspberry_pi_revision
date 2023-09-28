@@ -100,8 +100,9 @@
 // |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
 // |   |       |              | unknown, Zero W, B Pi3+, A Pi3+, unknown,  |
 // |   |       |              | Compute Module 3+, B Pi4, Zero 2 W,        |
-// |   |       |              | Compute Module 4,400                       |
-// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711         |
+// |   |       |              | Compute Module 4,400, 5                    |
+// | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711,        |
+// |   |       |              | BCM2712                                    |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
 // | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, |
@@ -228,6 +229,7 @@ static RASPBERRY_PI_PROCESSOR_T bitFieldToProcessor[] =
     RPI_BROADCOM_2836, // 1
     RPI_BROADCOM_2837, // 2
     RPI_BROADCOM_2711, // 3
+    RPI_BROADCOM_2712, // 4
 };
 
 //-------------------------------------------------------------------------
@@ -284,6 +286,8 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_400,             // 13 
     RPI_COMPUTE_MODULE_4,      // 14 
     RPI_COMPUTE_MODULE_4S,     // 15
+    RPI_MODEL_UNKNOWN,         // 16
+    RPI_MODEL_PI_5,            // 17
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -619,6 +623,11 @@ getRaspberryPiInformationForRevision(
             info->peripheralBase = RPI_BROADCOM_2711_PERIPHERAL_BASE;
             break;
 
+        case RPI_BROADCOM_2712:
+
+            info->peripheralBase = RPI_BROADCOM_2712_PERIPHERAL_BASE;
+            break;
+
         default:
 
             info->peripheralBase = RPI_PERIPHERAL_BASE_UNKNOWN;
@@ -705,6 +714,11 @@ raspberryPiProcessorToString(
     case RPI_BROADCOM_2711:
 
         string = "Broadcom BCM2711";
+        break;
+
+    case RPI_BROADCOM_2712:
+
+        string = "Broadcom BCM2712";
         break;
 
     default:
@@ -845,6 +859,11 @@ raspberryPiModelToString(
     case RPI_COMPUTE_MODULE_4S:
 
         string = "Raspberry Pi Compute Module 4S";
+        break;
+
+    case RPI_MODEL_PI_5:
+
+        string = "Raspberry Pi 5";
         break;
 
     default:

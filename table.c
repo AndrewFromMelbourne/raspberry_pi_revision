@@ -212,6 +212,7 @@ main(void)
         0xB03111,
         0xC03130,
         0xA03150,
+        0xD04170
     };
 
     printRevisionTable(
