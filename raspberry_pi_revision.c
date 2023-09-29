@@ -96,11 +96,7 @@
 // | # | bits  |   contains   | values                                     |
 // +---+-------+--------------+--------------------------------------------+
 // | A | 00-03 | PCB Revision | (the pcb revision number)                  |
-// | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module |
-// |   |       |              | unknown, B Pi3, Zero, Compute Module 3     |
-// |   |       |              | unknown, Zero W, B Pi3+, A Pi3+, unknown,  |
-// |   |       |              | Compute Module 3+, B Pi4, Zero 2 W,        |
-// |   |       |              | Compute Module 4,400, 5                    |
+// | B | 04-11 | Model name   |                                            |
 // | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711,        |
 // |   |       |              | BCM2712                                    |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
