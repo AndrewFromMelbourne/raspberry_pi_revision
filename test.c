@@ -44,6 +44,16 @@ getPeripheralBaseFromBcmHost(void)
 
     void *dl = dlopen("/opt/vc/lib/libbcm_host.so", RTLD_NOW);
 
+    if (dl == NULL)
+    {
+        dl = dlopen("/usr/lib/arm-linux-gnueabihf/libbcm_host.so", RTLD_NOW);
+    }
+
+    if (dl == NULL)
+    {
+        dl = dlopen("/usr/lib/aarch64-linux-gnu/libbcm_host.so", RTLD_NOW);
+    }
+
     if (dl != NULL)
     {
         bhgpa func = dlsym(dl, "bcm_host_get_peripheral_address");
