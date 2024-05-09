@@ -128,6 +128,10 @@ typedef struct
     int pcbRevision;
     int warrantyBit;
     int revisionNumber;
+    int extendedRevisionNumber;
+    int emmcFittedBit;
+    int wifiFittedBit;
+    int countryCode;
     uint32_t peripheralBase;
 }
 RASPBERRY_PI_INFO_T;
@@ -136,9 +140,10 @@ RASPBERRY_PI_INFO_T;
 
 // getRaspberryPiInformation()
 //
-// return - 0 - failed to get revision from /proc/cpuinfo
-//          1 - found classic revision number
-//          2 - found Pi 2 style revision number
+// return - -1 - failed to get extended revision from /proc/device-tree/chosen/rpi-boardrev-ext
+//           0 - failed to get revision from /proc/cpuinfo
+//           1 - found classic revision number
+//           2 - found Pi 2 style revision number
 
 int
 getRaspberryPiInformation(
@@ -150,7 +155,15 @@ getRaspberryPiInformationForRevision(
     RASPBERRY_PI_INFO_T *info);
 
 int
+getRaspberryPiInformationForExtendedRevision(
+    int extendedRevision,
+    RASPBERRY_PI_INFO_T *info);
+
+int
 getRaspberryPiRevision(void);
+
+int
+getRaspberryPiExtendedRevision(void);
 
 const char *
 raspberryPiMemoryToString(
