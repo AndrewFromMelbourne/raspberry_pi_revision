@@ -61,7 +61,7 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 | B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+, unknown, Compute Module 3+, Pi4, Zero 2 W, Compute Module 4, 400, Compute Module 4S, unknown, Pi5  |
 | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711, BCM2712                       |
 | D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium              |
-| E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, 8192 MB                |
+| E | 20-22 | Memory size  | 256 MB, 512 MB, 1 GB, 2 GB, 4 GB, 8 GB, 16 GB                     |
 | F | 23-23 | encoded flag | (if set, revision is a bit field)                                 |
 | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)                                 |
 | H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)                                |
@@ -77,7 +77,7 @@ Revision    : A01041
     B - Model Name - 4 (Model B Pi 2)
     C - Processor - 1 (BCM2836)
     D - Manufacturer - 0 (Sony UK)
-    E - Memory - 2 (1024 MB)
+    E - Memory - 2 (1 GB)
     F - Endcoded flag - 1 (encoded cpu info)
 
 Revision    : A21041
@@ -86,7 +86,7 @@ Revision    : A21041
     B - Model Name - 4 (Model B Pi 2)
     C - Processor - 1 (BCM2836)
     D - Manufacturer - 2 (Embest)
-    E - Memory - 2 (1024 MB)
+    E - Memory - 2 (1 GB)
     F - Endcoded flag - 1 (encoded cpu info)
 
 Revision    : 900092
@@ -104,7 +104,7 @@ Revision    : A02082
     B - Model Name - 8 (Model B Pi 3)
     C - Processor - 2 (BCM2837)
     D - Manufacturer - 0 (Sony UK)
-    E - Memory - 2 (1024 MB)
+    E - Memory - 2 (1 GB)
     F - Endcoded flag - 1 (encoded cpu info)
 
 Revision    : A52082
@@ -113,7 +113,7 @@ Revision    : A52082
     B - Model Name - 8 (Model B Pi 3)
     C - Processor - 2 (BCM2837)
     D - Manufacturer - 5 (Stadium)
-    E - Memory - 2 (1024 MB)
+    E - Memory - 2 (1 GB)
     F - Endcoded flag - 1 (encoded cpu info)
 
 Revision    : B03111
@@ -122,5 +122,5 @@ Revision    : B03111
     B - Model Name - 17 (Model B Pi 4)
     C - Processor - 3 (BCM2711)
     D - Manufacturer - 0 (Sony UK)
-    E - Memory - 3 (2048 MB)
+    E - Memory - 3 (2 GB)
     F - Endcoded flag - 1 (encoded cpu info)

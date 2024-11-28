@@ -56,6 +56,7 @@ typedef enum
     RPI_2048MB = 2048,
     RPI_4096MB = 4096,
     RPI_8192MB = 8192,
+    RPI_16384MB = 16384,
 }
 RASPBERRY_PI_MEMORY_T;
 

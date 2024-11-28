@@ -101,8 +101,8 @@
 // |   |       |              | BCM2712                                    |
 // | D | 16-19 | Manufacturer | Sony, Egoman, Embest, Sony Japan, Embest,  |
 // |   |       |              | Stadium                                    |
-// | E | 20-22 | Memory size  | 256 MB, 512 MB, 1024 MB, 2048 MB, 4096 MB, |
-// |   |       |              | 8192 MB                                    |
+// | E | 20-22 | Memory size  | 256 MB, 512 MB, 1 GB, 2 GB, 4 GB,  8 GB,   |
+// |   |       |              | 16 GB                                      |
 // | F | 23-23 | encoded flag | (if set, revision is a bit field)          |
 // | G | 24-24 | waranty bit  | (if set, warranty void - Pre Pi2)          |
 // | H | 25-25 | waranty bit  | (if set, warranty void - Post Pi2)         |
@@ -120,7 +120,7 @@
 // B - Model Name - 4 (Model B Pi 2)
 // C - Processor - 1 (BCM2836)
 // D - Manufacturer - 0 (Sony)
-// E - Memory - 2 (1024 MB)
+// E - Memory - 2 (1 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
 // Revision    : A21041
@@ -129,7 +129,7 @@
 // B - Model Name - 4 (Model B Pi 2)
 // C - Processor - 1 (BCM2836)
 // D - Manufacturer - 2 (Embest)
-// E - Memory - 2 (1024 MB)
+// E - Memory - 2 (1 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
 // Revision    : 900092
@@ -147,7 +147,7 @@
 // B - Model Name - 8 (Model B Pi 3)
 // C - Processor - 2 (BCM2837)
 // D - Manufacturer - 0 (Sony)
-// E - Memory - 2 (1024 MB)
+// E - Memory - 2 (1 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
 // Revision    : A52082
@@ -156,7 +156,7 @@
 // B - Model Name - 8 (Model B Pi 3)
 // C - Processor - 2 (BCM2837)
 // D - Manufacturer - 5 (Stadium)
-// E - Memory - 2 (1024 MB)
+// E - Memory - 2 (1 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 //
 // Revision    : 03A01041
@@ -165,7 +165,7 @@
 // B - Model Name - 4 (Model B Pi 2)
 // C - Processor - 1 (BCM2836)
 // D - Manufacturer - 0 (Sony UK)
-// E - Memory - 2 (1024 MB)
+// E - Memory - 2 (1 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 // G - Pre-Pi2 Warranty - 1 (void)
 // H - Post-Pi2 Warranty - 1 (void)
@@ -176,7 +176,7 @@
 // B - Model Name - 17 (Model B Pi 4)
 // C - Processor - 3 (BCM2711)
 // D - Manufacturer - 0 (Sony UK)
-// E - Memory - 32 (2048 MB)
+// E - Memory - 32 (2 GB)
 // F - Endcoded flag - 1 (encoded cpu info)
 
 //-------------------------------------------------------------------------
@@ -209,12 +209,13 @@ static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
 
 static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
 {
-    RPI_256MB,  // 0
-    RPI_512MB,  // 1
-    RPI_1024MB, // 2
-    RPI_2048MB, // 3
-    RPI_4096MB, // 4
-    RPI_8192MB, // 5
+    RPI_256MB,   // 0
+    RPI_512MB,   // 1
+    RPI_1024MB,  // 2
+    RPI_2048MB,  // 3
+    RPI_4096MB,  // 4
+    RPI_8192MB,  // 5
+    RPI_16384MB, // 6
 };
 
 //-------------------------------------------------------------------------
@@ -656,22 +657,27 @@ raspberryPiMemoryToString(
 
     case RPI_1024MB:
 
-        string = "1024 MB";
+        string = "1 GB";
         break;
 
     case RPI_2048MB:
 
-        string = "2048 MB";
+        string = "2 GB";
         break;
 
     case RPI_4096MB:
 
-        string = "4096 MB";
+        string = "4 GB";
         break;
 
     case RPI_8192MB:
 
-        string = "8192 MB";
+        string = "8 GB";
+        break;
+
+    case RPI_16384MB:
+
+        string = "16 GB";
         break;
 
     default:
