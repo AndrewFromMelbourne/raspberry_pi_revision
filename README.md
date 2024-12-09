@@ -58,7 +58,7 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 | # | bits  |   contains   | values                                                            |
 |:-:|:-----:|:-------------|:------------------------------------------------------------------|
 | A | 00-03 | PCB Revision | (the pcb revision number)                                         |
-| B | 04-11 | Model name   | A, B, A+, B+, B Pi2, Alpha, Compute Module, unknown, Pi3, Zero, Compute Module 3, unknown, Zero W, Pi3+, 3A+, unknown, Compute Module 3+, Pi4, Zero 2 W, Compute Module 4, 400, Compute Module 4S, unknown, Pi5  |
+| B | 04-11 | Model name   | (see table bellow)                                                |
 | C | 12-15 | Processor    | BCM2835, BCM2836, BCM2837, BCM2711, BCM2712                       |
 | D | 16-19 | Manufacturer | Sony UK, Egoman, Embest, Sony Japan, Embest, Stadium              |
 | E | 20-22 | Memory size  | 256 MB, 512 MB, 1 GB, 2 GB, 4 GB, 8 GB, 16 GB                     |
@@ -69,7 +69,35 @@ Revision field in /proc/cpuinfo. The bit fields are as follows
 Also, due to some early issues the warranty bit has been move from bit
 24 to bit 25 of the revision number (i.e. 0x2000000).
 
-e.g.
+| #  | Model Name |
+|:--:|:-----------|
+| 00 | A          |
+| 01 | B          |
+| 02 | A+         |
+| 03 | B+         |
+| 04 | 2B         |
+| 05 | Alpha      |
+| 06 | CM1        |
+| 07 | Unknown    |
+| 08 | 3B         |
+| 09 | Zero       |
+| 0A | CM3        |
+| 0B | Unknown    |
+| 0C | Zero W     |
+| 0D | 3B+        |
+| 0E | 3A+        |
+| 0F | Unknown    |
+| 10 | CM3+       |
+| 11 | 4B         |
+| 12 | Zero 2 W   |
+| 13 | 400        |
+| 14 | CM4        |
+| 15 | CM4S       |
+| 16 | Unknown    |
+| 17 | 5          |
+| 18 | CM5        |
+| 19 | 500        |
+| 00 | CM5 Lite   |
 
 Revision    : A01041
 

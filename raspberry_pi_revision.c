@@ -285,6 +285,9 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_COMPUTE_MODULE_4S,     // 15
     RPI_MODEL_UNKNOWN,         // 16
     RPI_MODEL_PI_5,            // 17
+    RPI_COMPUTE_MODULE_5,      // 18
+    RPI_MODEL_500,             // 19
+    RPI_COMPUTE_MODULE_5_LITE, // 1A
 };
 
 static RASPBERRY_PI_MODEL_T revisionToModel[] =
@@ -850,6 +853,7 @@ raspberryPiModelToString(
         break;
 
     case RPI_MODEL_ZERO_2_W:
+
         string = "Raspberry Pi Model Zero 2 W";
         break;
 
@@ -866,6 +870,21 @@ raspberryPiModelToString(
     case RPI_MODEL_PI_5:
 
         string = "Raspberry Pi 5";
+        break;
+
+    case RPI_COMPUTE_MODULE_5:
+
+        string = "Raspberry Pi Compute Module 5";
+        break;
+
+    case RPI_MODEL_500:
+
+        string = "Raspberry Pi 500";
+        break;
+
+    case RPI_COMPUTE_MODULE_5_LITE:
+
+        string = "Raspberry Pi Compute Module 5 Lite";
         break;
 
     default:
