@@ -26,6 +26,7 @@
 //-------------------------------------------------------------------------
 
 #include <ctype.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -180,6 +181,20 @@
 // F - Endcoded flag - 1 (encoded cpu info)
 
 //-------------------------------------------------------------------------
+//
+// The Raspberry Pi board extended revision is in OTP register 33, a 32-bit
+// register. The boot firmware makes this available to userspace in the file
+// /proc/device-tree/chosen/rpi-boardrev-ext.
+//
+// +---+-------+--------------+--------------------------------------------+
+// | # | bits  |   contains   | values                                     |
+// +---+-------+--------------+--------------------------------------------+
+// | A | 00-07 | Country code | Model 400 keyboard country code            |
+// | B | 30-30 | WiFi module  | Model CM4 WiFi module (0=fitted, 1=absent) |
+// | C | 31-31 | eMMC module  | Model CM4 eMMC module (0=fitted, 1=absent) |
+// +---+-------+--------------+--------------------------------------------+
+//
+//-------------------------------------------------------------------------
 
 static RASPBERRY_PI_MEMORY_T revisionToMemory[] =
 {
@@ -279,9 +294,9 @@ static RASPBERRY_PI_MODEL_T bitFieldToModel[] =
     RPI_MODEL_UNKNOWN,         //  F
     RPI_COMPUTE_MODULE_3_PLUS, // 10
     RPI_MODEL_B_PI_4,          // 11
-    RPI_MODEL_ZERO_2_W,        // 12 
-    RPI_MODEL_400,             // 13 
-    RPI_COMPUTE_MODULE_4,      // 14 
+    RPI_MODEL_ZERO_2_W,        // 12
+    RPI_MODEL_400,             // 13
+    RPI_COMPUTE_MODULE_4,      // 14
     RPI_COMPUTE_MODULE_4S,     // 15
     RPI_MODEL_UNKNOWN,         // 16
     RPI_MODEL_PI_5,            // 17
@@ -460,12 +475,58 @@ getRaspberryPiRevision()
 //-------------------------------------------------------------------------
 
 int
+getRaspberryPiExtendedRevision()
+{
+    int raspberryPiExtendedRevision = 0;
+
+    FILE *fp = fopen("/proc/device-tree/chosen/rpi-boardrev-ext", "r");
+
+    if (fp == NULL)
+    {
+        perror("/proc/device-tree/chosen/rpi-boardrev-ext");
+        return raspberryPiExtendedRevision;
+    }
+
+    uint8_t data[4];
+    uint32_t value = 0;
+
+    size_t numRead = fread(data, 1, 4, fp);
+    if (numRead != 4)
+    {
+        perror("/proc/device-tree/chosen/rpi-boardrev-ext");
+        fclose(fp);
+        return raspberryPiExtendedRevision;
+    }
+
+    value = ((uint32_t) data[3] << 0)  |
+            ((uint32_t) data[2] << 8)  |
+            ((uint32_t) data[1] << 16) |
+            ((uint32_t) data[0] << 24);
+    raspberryPiExtendedRevision = (int) value;
+
+    fclose(fp);
+
+    return raspberryPiExtendedRevision;
+}
+
+//-------------------------------------------------------------------------
+
+int
 getRaspberryPiInformation(
     RASPBERRY_PI_INFO_T *info)
 {
     int revision = getRaspberryPiRevision();
+    int extendedRevision = getRaspberryPiExtendedRevision();
 
-    return getRaspberryPiInformationForRevision(revision, info);
+    int result1 = getRaspberryPiInformationForRevision(revision, info);
+    if (result1 == 0)
+        return 0;
+
+    int result2 = getRaspberryPiInformationForExtendedRevision(extendedRevision, info);
+    if (result2 == 0)
+        return -1;
+
+    return result1;
 }
 
 //-------------------------------------------------------------------------
@@ -484,6 +545,9 @@ getRaspberryPiInformationForRevision(
         info->i2cDevice = RPI_I2C_DEVICE_UNKNOWN;
         info->model = RPI_MODEL_UNKNOWN;
         info->manufacturer = RPI_MANUFACTURER_UNKNOWN;
+        info->emmcFittedBit = 0;
+        info->wifiFittedBit = 0;
+        info->countryCode = 0;
         info->pcbRevision = 0;
         info->warrantyBit = 0;
         info->revisionNumber = revision;
@@ -632,6 +696,42 @@ getRaspberryPiInformationForRevision(
 
             info->peripheralBase = RPI_PERIPHERAL_BASE_UNKNOWN;
             break;
+        }
+    }
+
+    return result;
+}
+
+//-------------------------------------------------------------------------
+
+int
+getRaspberryPiInformationForExtendedRevision(
+    int extendedRevision,
+    RASPBERRY_PI_INFO_T *info)
+{
+    int result = 0;
+
+    if (info != NULL)
+    {
+        info->extendedRevisionNumber = extendedRevision;
+        info->emmcFittedBit = 0;
+        info->wifiFittedBit = 0;
+        info->countryCode = 0;
+
+        if (info->model == RPI_COMPUTE_MODULE_4)
+        {
+            info->emmcFittedBit = (info->extendedRevisionNumber & 0x80000000) ? 0 : 1;
+            info->wifiFittedBit = (info->extendedRevisionNumber & 0x40000000) ? 0 : 1;
+            result = 1;
+        }
+        else if (info->model == RPI_MODEL_400)
+        {
+            info->countryCode = info->extendedRevisionNumber & 0xFF;
+            result = 1;
+        }
+        else if (info->model != RPI_MODEL_UNKNOWN)
+        {
+            result = 1;
         }
     }
 

@@ -76,7 +76,7 @@ int
 main(void)
 {
     RASPBERRY_PI_INFO_T info;
-    
+
     if (getRaspberryPiInformation(&info) > 0)
     {
         printf("memory: %s\n", raspberryPiMemoryToString(info.memory));
@@ -98,6 +98,15 @@ main(void)
         printf("warranty void: %s\n", (info.warrantyBit) ? "yes" : "no");
 
         printf("revision: %04x\n", info.revisionNumber);
+
+        printf("extended revision: 0x%08"PRIX32"\n", info.extendedRevisionNumber);
+
+        printf("emmc fitted (CM4 only): %s\n", (info.emmcFittedBit) ? "yes" : "no");
+
+        printf("wifi fitted (CM4 only): %s\n", (info.wifiFittedBit) ? "yes" : "no");
+
+        printf("country code (400 only): %d\n", info.countryCode);
+
         printf("peripheral base: 0x%"PRIX32"\n", info.peripheralBase);
 
         printf("\n");

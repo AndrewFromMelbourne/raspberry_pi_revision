@@ -1,7 +1,8 @@
 # raspberry_pi_revision
 
 C function to decode the Revision: field of /proc/cpuinfo on the Raspberry
-Pi. 
+Pi. It also decodes the board revision extended register at
+/proc/device-tree/chosen/rpi-boardrev-ext.
 
 # Known revisions
 
@@ -152,3 +153,15 @@ Revision    : B03111
     D - Manufacturer - 0 (Sony UK)
     E - Memory - 3 (2 GB)
     F - Endcoded flag - 1 (encoded cpu info)
+
+## Raspberry Pi Board Revision Extended
+
+The Raspberry Pi board extended revision is in OTP register 33, a 32-bit
+register. The boot firmware makes this available to userspace in the file
+`/proc/device-tree/chosen/rpi-boardrev-ext`.
+
+| # | bits  |   contains   | values                                     |
+|:-:|:-----:|:------------:|:------------------------------------------:|
+| A | 00-07 | Country code | Model 400 keyboard country code            |
+| B | 30-30 | WiFi module  | Model CM4 WiFi module (0=fitted, 1=absent) |
+| C | 31-31 | eMMC module  | Model CM4 eMMC module (0=fitted, 1=absent) |
