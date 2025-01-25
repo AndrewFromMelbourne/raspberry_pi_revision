@@ -211,11 +211,11 @@ static RASPBERRY_PI_MEMORY_T bitFieldToMemory[] =
 {
     RPI_256MB,   // 0
     RPI_512MB,   // 1
-    RPI_1024MB,  // 2
-    RPI_2048MB,  // 3
-    RPI_4096MB,  // 4
-    RPI_8192MB,  // 5
-    RPI_16384MB, // 6
+    RPI_1GB,     // 2
+    RPI_2GB,     // 3
+    RPI_4GB,     // 4
+    RPI_8GB,     // 5
+    RPI_16GB,    // 6
 };
 
 //-------------------------------------------------------------------------
@@ -658,27 +658,27 @@ raspberryPiMemoryToString(
         string = "512 MB";
         break;
 
-    case RPI_1024MB:
+    case RPI_1GB:
 
         string = "1 GB";
         break;
 
-    case RPI_2048MB:
+    case RPI_2GB:
 
         string = "2 GB";
         break;
 
-    case RPI_4096MB:
+    case RPI_4GB:
 
         string = "4 GB";
         break;
 
-    case RPI_8192MB:
+    case RPI_8GB:
 
         string = "8 GB";
         break;
 
-    case RPI_16384MB:
+    case RPI_16GB:
 
         string = "16 GB";
         break;
