@@ -97,7 +97,7 @@ Also, due to some early issues the warranty bit has been move from bit
 | 17 | 5          |
 | 18 | CM5        |
 | 19 | 500        |
-| 00 | CM5 Lite   |
+| 1A | CM5 Lite   |
 
 Revision    : A01041
 
