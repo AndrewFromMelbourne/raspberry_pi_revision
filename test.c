@@ -69,7 +69,6 @@ getPeripheralBaseFromBcmHost(void)
     return base;
 }
 
-
 //-----------------------------------------------------------------------
 
 int

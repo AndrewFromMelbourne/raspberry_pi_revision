@@ -66,7 +66,6 @@ printTableSeparator(
 
 //-----------------------------------------------------------------------
 
-
 void
 printTableHeader(
     FORMAT_T *format,
